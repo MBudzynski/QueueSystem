@@ -1,0 +1,13 @@
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: validate
+  show-sql: true
+
+spring.datasource:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/queue-system
+  username: postgres
+  password: MiBu92
+
+server:
+  port: 8085
