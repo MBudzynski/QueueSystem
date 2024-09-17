@@ -12,7 +12,7 @@ public class KioskButton {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kioskButtonId;
     private Long kioskSubButtonId;
-    private Long buttonText;
+    private String buttonText;
     private String queueConfigurationUUID;
 
     @ManyToOne

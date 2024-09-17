@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface LocalizationFacade {
     LocalizationDto findLocalizationIdByUUID(UUID localizationUUID);
+
 }

@@ -9,12 +9,12 @@ public class KioskButtonDto {
 
     private Long kioskButtonId;
     private Long kioskSubButtonId;
-    private Long buttonText;
+    private String buttonText;
     private String queueConfigurationUUID;
 
     public KioskButtonDto(Long kioskButtonId,
                           Long kioskSubButtonId,
-                          Long buttonText,
+                          String buttonText,
                           String queueConfigurationUUID) {
         this.kioskButtonId = kioskButtonId;
         this.kioskSubButtonId = kioskSubButtonId;

@@ -17,5 +17,5 @@ public class LocalizationDto {
     private String houseNumber;
     private String postCode;
     private String postOffice;
-    private String institutionLogoFileName;
+    private String pathToLogoFile;
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @Slf4j
-@Service
 @RestController("/queue")
 @RequiredArgsConstructor
 public class QueueController {

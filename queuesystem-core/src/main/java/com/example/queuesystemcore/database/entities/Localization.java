@@ -23,7 +23,7 @@ public class Localization {
     private String houseNumber;
     private String postCode;
     private String postOffice;
-    private String institutionLogoFileName;
+    private String pathToLogoFile;
 
     public LocalizationDto translate() {
         return new LocalizationDto(
@@ -35,6 +35,6 @@ public class Localization {
                 houseNumber,
                 postCode,
                 postOffice,
-                institutionLogoFileName);
+                pathToLogoFile);
     }
 }

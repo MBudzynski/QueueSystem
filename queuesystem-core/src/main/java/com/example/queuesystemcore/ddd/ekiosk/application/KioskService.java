@@ -29,9 +29,9 @@ public class KioskService implements KioskFacade {
         String institutionLogo;
 
         try {
-            institutionLogo = fileManager.loadFile(localizationData.getInstitutionLogoFileName());
+            institutionLogo = fileManager.loadFile(localizationData.getPathToLogoFile());
         } catch (FileNotFoundException e) {
-            log.error("Error load file: " + localizationData.getInstitutionLogoFileName(), e);
+            log.error("Error load file: " + localizationData.getPathToLogoFile(), e);
             institutionLogo = "";
         }
 
