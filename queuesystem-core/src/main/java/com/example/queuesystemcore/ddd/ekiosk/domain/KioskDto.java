@@ -10,9 +10,10 @@ import java.util.List;
 public class KioskDto {
 
     private Long kioskId;
-    private String UUID;
+    private String kioskUUID;
     private Long localizationId;
     private String kioskName;
     private String kioskDescription;
+    private String backgroundColor;
     private List<KioskButtonDto> kioskButtons;
 }

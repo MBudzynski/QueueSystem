@@ -14,7 +14,7 @@ public class QueueConfiguration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long queueConfigurationId;
-    private String UUID;
+    private String queueConfigurationUUID;
     private String queueName;
     private String localizationId;
     private Integer currentNumber;
@@ -25,7 +25,7 @@ public class QueueConfiguration {
     public QueueConfigurationDto translate() {
         return new QueueConfigurationDto(
                 queueConfigurationId,
-                UUID,
+                queueConfigurationUUID,
                 queueName,
                 localizationId,
                 currentNumber,

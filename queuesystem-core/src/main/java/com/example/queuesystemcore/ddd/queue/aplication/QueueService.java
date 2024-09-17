@@ -1,13 +1,15 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
-import com.example.queuesystemcore.common.LocalizationFacade;
-import com.example.queuesystemcore.common.QueueFacade;
+import com.example.queuesystemcore.common.application.LocalizationFacade;
+import com.example.queuesystemcore.common.application.QueueFacade;
+import com.example.queuesystemcore.ddd.localization.domain.LocalizationDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -20,11 +22,15 @@ public class QueueService implements QueueFacade {
     private final QueueConfigurationProvider queueConfigurationProvider;
     private final LocalizationFacade localizationFacade;
 
-    public String queuePetitioner(UUID queueConfigurationUUID,
-                                     UUID localizationUUID) {
+    @Transactional
+    public String queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
 
-        Long localizationId = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        QueueConfigurationDto queueConfiguration = queueConfigurationProvider.findQueueConfigurationByUUID(queueConfigurationUUID, localizationId);
+        LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
+        QueueConfigurationDto queueConfiguration = queueConfigurationProvider
+                .findQueueConfigurationByUUID(
+                        queueConfigurationUUID,
+                        localizationDto.getLocationId()
+                );
 
         String sign = queueConfiguration.getSign();
         Integer number = queueConfiguration.getNextNumber();
@@ -35,7 +41,7 @@ public class QueueService implements QueueFacade {
                 .num(number)
                 .fullNumber(fullNumber)
                 .queueConfigurationId(queueConfiguration.getQueueConfigurationId())
-                .localizationId(localizationId)
+                .localizationId(localizationDto.getLocationId())
                 .build();
 
         queueRepository.addToQueue(toQueue);

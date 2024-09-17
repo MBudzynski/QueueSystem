@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class QueueConfigurationDto {
     private Long queueConfigurationId;
-    private String UUID;
+    private String queueConfigurationUUID;
     private String queueName;
     private String localizationId;
     private Integer currentNumber;

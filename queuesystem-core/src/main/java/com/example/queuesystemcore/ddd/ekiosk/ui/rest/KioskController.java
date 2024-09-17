@@ -2,7 +2,8 @@ package com.example.queuesystemcore.ddd.ekiosk.ui.rest;
 
 import com.example.queuesystemcore.ddd.ekiosk.application.KioskService;
 import com.example.queuesystemcore.ddd.ekiosk.domain.KioskDto;
-import com.example.queuesystemcore.ddd.ekiosk.ui.rest.request.KioskRequest;
+import com.example.queuesystemcore.ddd.ekiosk.ui.rest.request.EKioskRequest;
+import com.example.queuesystemcore.ddd.ekiosk.ui.rest.response.EKioskConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,14 @@ public class KioskController {
 
     private final KioskService kioskService;
 
-    @PostMapping(path = "/find")
-    ResponseEntity<KioskDto> queuePetitioner(@RequestBody KioskRequest request) {
+    @PostMapping(path = "/find-configuration")
+    ResponseEntity<EKioskConfiguration> findEkioskConfiguration(@RequestBody EKioskRequest request) {
 
-        KioskDto kioskDto = kioskService.findKioskButtons(
+        EKioskConfiguration eKioskConfiguration = kioskService.findKioskButtons(
                 UUID.fromString(request.getKioskUUID()),
                 UUID.fromString(request.getLocalizationUUID())
         );
 
-        return ResponseEntity.ok(kioskDto);
+        return ResponseEntity.ok(eKioskConfiguration);
     }
 }

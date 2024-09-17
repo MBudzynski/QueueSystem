@@ -13,21 +13,22 @@ public class Kiosk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kioskId;
-    private String UUID;
+    private String kioskUUID;
     private Long localizationId;
     private String kioskName;
     private String kioskDescription;
-
+    private String backgroundColor;
     @OneToMany(mappedBy="kiosk")
     private List<KioskButton> kioskButtons;
 
     public KioskDto translate() {
         return new KioskDto (
                 kioskId,
-                UUID,
+                kioskUUID,
                 localizationId,
                 kioskName,
                 kioskDescription,
+                backgroundColor,
                 kioskButtons
                         .stream()
                         .map(KioskButton::translate)

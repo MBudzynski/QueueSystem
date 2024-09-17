@@ -14,10 +14,11 @@ import java.util.UUID;
 public class LocalizationAdapter implements LocalizationRepository {
 
     private final LocalizationJpaRepository repository;
+
     @Override
     public Optional<LocalizationDto> findLocalizationByUUID(UUID localizationUUID) {
         return Optional
-                .ofNullable(repository.findByUUID(localizationUUID.toString()))
+                .ofNullable(repository.findByLocationUUID(localizationUUID))
                 .map(Localization::translate);
     }
 }

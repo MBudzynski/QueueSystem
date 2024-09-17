@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class KioskRequest {
-
+public class EKioskRequest {
     private String localizationUUID;
     private String kioskUUID;
 }

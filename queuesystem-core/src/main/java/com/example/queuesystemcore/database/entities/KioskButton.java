@@ -13,8 +13,7 @@ public class KioskButton {
     private Long kioskButtonId;
     private Long kioskSubButtonId;
     private Long buttonText;
-    private String queueConfigurationId;
-    private String kioskDescription;
+    private String queueConfigurationUUID;
 
     @ManyToOne
     @JoinColumn(name="kiosk_id", nullable=false)
@@ -25,8 +24,7 @@ public class KioskButton {
                 kioskButtonId,
                 kioskSubButtonId,
                 buttonText,
-                queueConfigurationId,
-                kioskDescription
+                queueConfigurationUUID
         );
     }
 }

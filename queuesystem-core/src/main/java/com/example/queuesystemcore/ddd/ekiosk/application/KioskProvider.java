@@ -18,6 +18,6 @@ public class KioskProvider {
 
     public KioskDto findKioskData(UUID kioskUUID, Long localizationId){
         return kioskRepository.findKioskData(kioskUUID, localizationId)
-                .orElseThrow(() -> new KioskNoExistException("kiosk data no exist"));
+                .orElseThrow(() -> new KioskNoExistException("Kiosk data no exist"));
     }
 }

@@ -7,30 +7,34 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @NoArgsConstructor
 public class Localization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long localizationId;
-    private String UUID;
+    private Long locationId;
+    private UUID locationUUID;
     private String institutionName;
     private String city;
     private String street;
     private String houseNumber;
     private String postCode;
     private String postOffice;
+    private String institutionLogoFileName;
 
     public LocalizationDto translate() {
         return new LocalizationDto(
-                localizationId,
-                UUID,
+                locationId,
+                locationUUID,
                 institutionName,
                 city,
                 street,
                 houseNumber,
                 postCode,
-                postOffice);
+                postOffice,
+                institutionLogoFileName);
     }
 }
