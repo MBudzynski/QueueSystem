@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queue;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueDto;
+import com.example.queuesystemcore.ddd.queue.domain.QueueData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ public class QueueAdapter implements QueueRepository {
     private final QueueJpaRepository queueJpaRepository;
 
     @Override
-    public void addToQueue(QueueDto toQueue) {
+    public void addToQueue(QueueData toQueue) {
         queueJpaRepository.save(toQueue.toEntity());
     }
 }

@@ -1,6 +1,5 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
-import com.example.queuesystemcore.database.entities.QueueConfiguration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
-import com.example.queuesystemcore.database.entities.QueueConfiguration;
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationDto;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ class QueueConfigurationAdapter implements QueueConfigurationRepository {
 
     private final QueueConfigurationJpaRepository repository;
 
-    public Optional<QueueConfigurationDto> findQueueConfigurationByUuid(UUID uuid, Long localizationId){
+    public Optional<QueueConfigurationData> findQueueConfigurationByUuid(UUID uuid, Long localizationId){
         return Optional
                 .ofNullable(repository.findByUUIDAndLocalizationId(uuid.toString(), localizationId))
                 .map(QueueConfiguration::translate);

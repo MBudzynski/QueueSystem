@@ -1,8 +1,8 @@
 package com.example.queuesystemcore.ddd.localization.application;
 
 import com.example.queuesystemcore.common.application.LocalizationFacade;
-import com.example.queuesystemcore.database.entities.Localization;
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationDto;
+import com.example.queuesystemcore.common.domain.LocalizationDto;
+import com.example.queuesystemcore.ddd.localization.application.mapper.LocalizationDtoMapper;
 import com.example.queuesystemcore.ddd.localization.domain.LocalizationRepository;
 import com.example.queuesystemcore.ddd.localization.exception.LocalizationNoExistException;
 import lombok.AllArgsConstructor;
@@ -22,6 +22,7 @@ public class LocalizationService implements LocalizationFacade {
     public LocalizationDto findLocalizationIdByUUID(UUID localizationUUID) {
         return localizationRepository
                 .findLocalizationByUUID(localizationUUID)
+                .map(LocalizationDtoMapper::valueOf)
                 .orElseThrow(() ->  new LocalizationNoExistException("localization no exist"));
     }
 }

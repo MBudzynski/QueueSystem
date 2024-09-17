@@ -2,9 +2,9 @@ package com.example.queuesystemcore.ddd.queue.aplication;
 
 import com.example.queuesystemcore.common.application.LocalizationFacade;
 import com.example.queuesystemcore.common.application.QueueFacade;
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueDto;
+import com.example.queuesystemcore.common.domain.LocalizationDto;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class QueueService implements QueueFacade {
     public String queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
 
         LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        QueueConfigurationDto queueConfiguration = queueConfigurationProvider
+        QueueConfigurationData queueConfiguration = queueConfigurationProvider
                 .findQueueConfigurationByUUID(
                         queueConfigurationUUID,
                         localizationDto.getLocationId()
@@ -36,7 +36,7 @@ public class QueueService implements QueueFacade {
         Integer number = queueConfiguration.getNextNumber();
         String fullNumber = sign + formatNumberToSting(number);
 
-        QueueDto toQueue = QueueDto.builder()
+        QueueData toQueue = QueueData.builder()
                 .sign(sign)
                 .num(number)
                 .fullNumber(fullNumber)

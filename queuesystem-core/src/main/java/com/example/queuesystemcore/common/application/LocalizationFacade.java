@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.common.application;
 
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationDto;
+import com.example.queuesystemcore.common.domain.LocalizationDto;
 
 import java.util.UUID;
 
