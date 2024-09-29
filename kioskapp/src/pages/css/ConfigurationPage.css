@@ -26,13 +26,13 @@ html, body {
 .label {
     margin-bottom: 8px;
     font-weight: bold;
-    color: darkgray;
+    color: #222222;
 }
 
 .input {
     padding: 8px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #222222;
     border-radius: 4px;
     width: 100%;
 }
@@ -50,4 +50,19 @@ html, body {
 
 .button:hover {
     background-color: #0056b3;
+}
+
+.error-box {
+    border: 2px solid #c10000;
+    padding: 16px;
+    background-color: #cd0000;
+    border-radius: 8px;
+    margin-top: 16px;
+    text-align:  center;
+}
+
+.error-tex {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
 }

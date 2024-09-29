@@ -23,7 +23,7 @@ public class KioskController {
     private final KioskService kioskService;
 
     @PostMapping( "/find-configuration")
-    ResponseEntity<KioskConfiguration> findEkioskConfiguration(@RequestBody @Valid KioskRequest request) {
+    ResponseEntity<KioskConfiguration> findKioskConfiguration(@RequestBody @Valid KioskRequest request) {
 
         KioskConfiguration kioskConfiguration = kioskService.findKioskButtons(
                 UUID.fromString(request.getKioskUUID()),
