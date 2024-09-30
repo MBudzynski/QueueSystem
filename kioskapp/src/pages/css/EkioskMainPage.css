@@ -1,0 +1,54 @@
+.atm-window {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fff;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.screen {
+    background-color: #222;
+    border: 2px solid #555;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.side-buttons.left {
+    left: 20px;
+}
+
+.side-buttons.right {
+    right: 20px;
+}
+
+.side-button {
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    margin: 10px 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 30px;
+    text-align: left;
+}
+
+.side-button:hover {
+    background-color: #777;
+}

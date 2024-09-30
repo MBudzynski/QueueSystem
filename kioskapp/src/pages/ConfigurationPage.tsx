@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import './css/ConfigurationPage.css';
-import {fetchKioskConfiguration} from '../service/KioskConfigurationService'
-import {KioskConfiguration} from "../dto/KioskConfiguration";
+import {fetchKioskConfiguration} from '../service/KioskConfigurationService';
+import { useNavigate } from 'react-router-dom';
 
 export const ConfigurationPage = () => {
     const [locationUUID, setLocationUUID] = useState<string>('');
     const [ekioskConfigUUID, setEkioskConfigUUID] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const handleLocationUUIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocationUUID(e.target.value)
@@ -18,16 +19,18 @@ export const ConfigurationPage = () => {
 
     const handleFetchConfiguration = async () => {
         setError(null);
-        let configuration = null;
+
+        let kioskConfiguration = null
 
         try {
-            configuration = await fetchKioskConfiguration(locationUUID, ekioskConfigUUID);
+            let configuration = await fetchKioskConfiguration(locationUUID, ekioskConfigUUID);
+            kioskConfiguration = configuration.data;
         } catch (e) {
             setError("Fetch configuration error");
             return;
         }
 
-        console.log('Pobrano konfigurację: ', configuration)
+        navigate('/mainEkioskPage', { state: {kioskConfiguration} });
     }
 
     return (
