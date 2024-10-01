@@ -30,8 +30,13 @@ export const ConfigurationPage = () => {
             return;
         }
 
-        navigate('/mainEkioskPage', { state: {kioskConfiguration} });
+        navigate('/mainEkioskPage', { state: { kioskConfiguration }});
     }
+
+    document.body.style.alignItems = 'center';
+    document.body.style.justifyContent = 'center';
+    document.body.style.display = 'flex';
+    document.body.style.marginTop = '10%';
 
     return (
         <div>

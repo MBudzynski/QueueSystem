@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
-import './css/EkioskMainPage.css';
+import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import {KioskConfiguration} from "../dto/KioskConfiguration";
+import './css/EkioskMainPage.css';
 
 export const EkioskMainPage = () => {
 
+    const [image, setImage] = useState<string>('');
     const location = useLocation();
-    const kioskConfiguration = location.state as { configuration: KioskConfiguration};
+    let kioskConfiguration = location.state.kioskConfiguration as KioskConfiguration;
+
+    useEffect(() => {
+        console.log(kioskConfiguration)
+        if (kioskConfiguration && kioskConfiguration.institutionLogoFile) {
+            setImage(kioskConfiguration.institutionLogoFile);
+        }
+    }, [kioskConfiguration]);
+
+    document.body.style.display = '';
+    document.body.style.marginTop = '';
 
     return(
         <div className="atm-window">
@@ -18,7 +29,7 @@ export const EkioskMainPage = () => {
             </div>
             <div className="screen">
                 <h1>Welcome to the ATM</h1>
-                <img src={'logo'} alt="Company Logo" className="logo"/>
+                <img src={`data:image/jpg;base64,${image}`} alt="Company Logo" width="220" height="220" className="logo"/>
                 <p>Please select an option:</p>
             </div>
             <div className="side-buttons right">
@@ -29,6 +40,5 @@ export const EkioskMainPage = () => {
             </div>
         </div>
     );
-
 }
 export default EkioskMainPage;
