@@ -2,12 +2,15 @@ import React, {useState} from 'react';
 import './css/ConfigurationPage.css';
 import {fetchKioskConfiguration} from '../service/KioskConfigurationService';
 import { useNavigate } from 'react-router-dom';
+import { set } from '../config/LocationUUID';
+import {useDispatch} from "react-redux";
 
 export const ConfigurationPage = () => {
     const [locationUUID, setLocationUUID] = useState<string>('');
     const [ekioskConfigUUID, setEkioskConfigUUID] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLocationUUIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocationUUID(e.target.value)
@@ -30,6 +33,7 @@ export const ConfigurationPage = () => {
             return;
         }
 
+        dispatch(set(locationUUID));
         navigate('/mainEkioskPage', { state: { kioskConfiguration }});
     }
 

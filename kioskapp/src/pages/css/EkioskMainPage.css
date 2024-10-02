@@ -46,7 +46,10 @@
     padding: 10px 20px;
     cursor: pointer;
     font-size: 30px;
-    text-align: left;
+    text-align: center;
+
+    min-width: 70vh;
+    min-height: 5vh;
 }
 
 .side-button:hover {

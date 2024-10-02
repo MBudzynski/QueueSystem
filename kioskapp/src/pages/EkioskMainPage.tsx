@@ -1,19 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
-import {KioskConfiguration} from "../dto/KioskConfiguration";
+import {KioskButton, KioskConfiguration} from "../dto/KioskConfiguration";
+import { useSelector } from "react-redux";
 import './css/EkioskMainPage.css';
+import {getLocationUUID} from "../config/LocationUUID";
 
 export const EkioskMainPage = () => {
 
     const [image, setImage] = useState<string>('');
     const location = useLocation();
+    const [leftButtons, setLeftButtons] = useState<KioskButton[]>([]);
+    const [rightButtons, setRightButtons] = useState<KioskButton[]>([]);
     let kioskConfiguration = location.state.kioskConfiguration as KioskConfiguration;
+    const locationUUID = useSelector(getLocationUUID);
 
     useEffect(() => {
-        console.log(kioskConfiguration)
+        const left: KioskButton[]  = [];
+        const right: KioskButton[] = [];
+
         if (kioskConfiguration && kioskConfiguration.institutionLogoFile) {
             setImage(kioskConfiguration.institutionLogoFile);
         }
+
+        kioskConfiguration.kioskButtons.forEach((button, index) => {
+            if (index % 2 === 0) {
+                left.push(button);
+            } else {
+                right.push(button);
+            }
+        });
+
+        setLeftButtons(left);
+        setRightButtons(right);
+
     }, [kioskConfiguration]);
 
     document.body.style.display = '';
@@ -22,10 +41,9 @@ export const EkioskMainPage = () => {
     return(
         <div className="atm-window">
             <div className="side-buttons left">
-                <button className="side-button">1asd as dasd dasd as  as</button>
-                <button className="side-button">2 asd asd asd as asd asd </button>
-                <button className="side-button">3 asd as dsa as dasd as da </button>
-                <button className="side-button">4asd asd asd asd asd asd asd as d</button>
+                {leftButtons.map((kioskButton, index) => (
+                    <button className="side-button" onClick={() => handleButtonClick(locationUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
+                ))}
             </div>
             <div className="screen">
                 <h1>Welcome to the ATM</h1>
@@ -33,12 +51,18 @@ export const EkioskMainPage = () => {
                 <p>Please select an option:</p>
             </div>
             <div className="side-buttons right">
-                <button className="side-button">Aasdasdasdasdasd</button>
-                <button className="side-button">Basdasda sad asd asd asd  asd </button>
-                <button className="side-button">C sad asd asd asd as dasd as d</button>
-                <button className="side-button">D asdasd sad asd  a asd as</button>
+                {rightButtons.map((kioskButton, index) => (
+                    <button className="side-button" onClick={() => handleButtonClick(locationUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
+                ))}
             </div>
         </div>
     );
 }
+
+const handleButtonClick = (locationUUID: string, queueConfigurationUUID: string) => {
+    console.log('location ' + locationUUID);
+    console.log('queueConfig ' + queueConfigurationUUID);
+    // queueSupplicant(locationUUID, queueConfigurationUUID);
+}
+
 export default EkioskMainPage;

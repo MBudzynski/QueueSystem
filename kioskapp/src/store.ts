@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import locationReducer from "./config/LocationUUID"
 
 export const store = configureStore({
   reducer: {
+    location:locationReducer,
   },
 });
 

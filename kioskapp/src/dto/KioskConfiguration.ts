@@ -11,7 +11,7 @@ export type KioskConfiguration = {
     kioskButtons: KioskButton[];
 }
 
-interface KioskButton {
+export type KioskButton = {
     kioskButtonId: number;
     kioskSubButtonId: number;
     buttonText: string;
