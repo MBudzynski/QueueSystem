@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {KioskButton, KioskConfiguration} from "../dto/KioskConfiguration";
 import { useSelector } from "react-redux";
 import './css/EkioskMainPage.css';
 import {getLocationUUID} from "../config/LocationUUID";
+import {queuePetitioner} from '../service/KioskConfigurationService';
+import {getKioskConfiguration} from "../config/QueueConfigurationPlaceholder";
 
 export const EkioskMainPage = () => {
 
     const [image, setImage] = useState<string>('');
-    const location = useLocation();
+    const navigate = useNavigate();
     const [leftButtons, setLeftButtons] = useState<KioskButton[]>([]);
     const [rightButtons, setRightButtons] = useState<KioskButton[]>([]);
-    let kioskConfiguration = location.state.kioskConfiguration as KioskConfiguration;
+    let kioskConfiguration = useSelector(getKioskConfiguration);
     const locationUUID = useSelector(getLocationUUID);
 
     useEffect(() => {
@@ -35,6 +37,12 @@ export const EkioskMainPage = () => {
 
     }, [kioskConfiguration]);
 
+    const handleButtonClick = async (locationUUID: string, queueConfigurationUUID: string) => {
+        let response = await queuePetitioner(locationUUID, queueConfigurationUUID);
+        let queueNumber = response.data.queueNumber;
+        navigate('/informationPage', { state: {queueNumber}});
+    }
+
     document.body.style.display = '';
     document.body.style.marginTop = '';
 
@@ -57,12 +65,6 @@ export const EkioskMainPage = () => {
             </div>
         </div>
     );
-}
-
-const handleButtonClick = (locationUUID: string, queueConfigurationUUID: string) => {
-    console.log('location ' + locationUUID);
-    console.log('queueConfig ' + queueConfigurationUUID);
-    // queueSupplicant(locationUUID, queueConfigurationUUID);
 }
 
 export default EkioskMainPage;

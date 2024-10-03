@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import './css/ConfigurationPage.css';
 import {fetchKioskConfiguration} from '../service/KioskConfigurationService';
-import { useNavigate } from 'react-router-dom';
-import { set } from '../config/LocationUUID';
+import {useNavigate} from 'react-router-dom';
+import {set} from '../config/LocationUUID';
+import {setKioskConfiguration} from '../config/QueueConfigurationPlaceholder';
 import {useDispatch} from "react-redux";
 
 export const ConfigurationPage = () => {
@@ -34,7 +35,8 @@ export const ConfigurationPage = () => {
         }
 
         dispatch(set(locationUUID));
-        navigate('/mainEkioskPage', { state: { kioskConfiguration }});
+        dispatch(setKioskConfiguration(kioskConfiguration));
+        navigate('/mainEkioskPage');
     }
 
     document.body.style.alignItems = 'center';

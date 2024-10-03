@@ -1,4 +1,3 @@
-
 export type KioskConfiguration = {
     institutionName: string;
     city: string;

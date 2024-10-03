@@ -1,10 +1,7 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -14,9 +11,10 @@ public class QueueConfiguration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long queueConfigurationId;
+    @Column(name = "queue_configuration_uuid")
     private String queueConfigurationUUID;
     private String queueName;
-    private String localizationId;
+    private Long localizationId;
     private Integer currentNumber;
     private Integer numberFrom;
     private Integer numberTo;

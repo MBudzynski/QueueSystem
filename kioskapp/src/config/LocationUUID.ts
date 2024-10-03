@@ -14,7 +14,6 @@ export const locationUUID = createSlice({
     initialState,
     reducers: {
         set: (state, action: PayloadAction<string>) => {
-            // state.value += action.payload;
             state.locationUUID = action.payload;
         },
     },

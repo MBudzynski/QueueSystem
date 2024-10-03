@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import './App.css';
 import ConfigurationPage from "./pages/ConfigurationPage";
 import EkioskMainPage from "./pages/EkioskMainPage";
+import InformationPage from "./pages/InformationPage";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: "/mainEkioskPage",
         element: <EkioskMainPage/>,
+    },
+    {
+        path: "/informationPage",
+        element: <InformationPage/>,
     },
 ]);
 

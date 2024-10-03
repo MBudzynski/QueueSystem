@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Slf4j
@@ -42,6 +44,8 @@ public class QueueService implements QueueFacade {
                 .fullNumber(fullNumber)
                 .queueConfigurationId(queueConfiguration.getQueueConfigurationId())
                 .localizationId(localizationDto.getLocationId())
+                .creationTime(LocalTime.now())
+                .creationDate(LocalDate.now())
                 .build();
 
         queueRepository.addToQueue(toQueue);
