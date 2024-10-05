@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class QueueConfigurationProvider {
+class QueueConfigurationProvider {
 
     private final QueueConfigurationRepository queueConfigurationRepository;
 

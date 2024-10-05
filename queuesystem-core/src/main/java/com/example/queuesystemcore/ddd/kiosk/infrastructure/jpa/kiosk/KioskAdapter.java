@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class KioskAdapter implements KioskRepository {
+class KioskAdapter implements KioskRepository {
 
     private final KioskJpaRepository repository;
 

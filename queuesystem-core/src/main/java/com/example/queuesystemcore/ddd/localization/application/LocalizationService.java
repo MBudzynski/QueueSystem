@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class LocalizationService implements LocalizationFacade {
+class LocalizationService implements LocalizationFacade {
 
     private final LocalizationRepository localizationRepository;
 

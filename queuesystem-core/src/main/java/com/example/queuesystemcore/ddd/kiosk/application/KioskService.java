@@ -16,7 +16,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KioskService implements KioskFacade {
+class KioskService implements KioskFacade {
 
     private final LocalizationFacade localizationFacade;
     private final KioskProvider kioskProvider;

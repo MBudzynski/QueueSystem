@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class QueueAdapter implements QueueRepository {
+class QueueAdapter implements QueueRepository {
 
     private final QueueJpaRepository queueJpaRepository;
 

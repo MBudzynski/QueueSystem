@@ -18,7 +18,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class QueueService implements QueueFacade {
+class QueueService implements QueueFacade {
 
     private final QueueRepository queueRepository;
     private final QueueConfigurationProvider queueConfigurationProvider;

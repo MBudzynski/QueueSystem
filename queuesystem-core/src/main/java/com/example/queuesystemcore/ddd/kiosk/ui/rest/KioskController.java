@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.kiosk.ui.rest;
 
-import com.example.queuesystemcore.ddd.kiosk.application.KioskService;
+import com.example.queuesystemcore.common.application.KioskFacade;
 import com.example.queuesystemcore.ddd.kiosk.ui.rest.request.KioskRequest;
 import com.example.queuesystemcore.ddd.kiosk.ui.rest.response.KioskConfiguration;
 import jakarta.validation.Valid;
@@ -20,12 +20,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class KioskController {
 
-    private final KioskService kioskService;
+    private final KioskFacade kioskFacade;
 
     @PostMapping( "/find-configuration")
     ResponseEntity<KioskConfiguration> findKioskConfiguration(@RequestBody @Valid KioskRequest request) {
 
-        KioskConfiguration kioskConfiguration = kioskService.findKioskButtons(
+        KioskConfiguration kioskConfiguration = kioskFacade.findKioskButtons(
                 UUID.fromString(request.getKioskUUID()),
                 UUID.fromString(request.getLocalizationUUID())
         );
