@@ -1,6 +1,7 @@
 package com.example.queuesystemcore.ddd.queue.ui.rest;
 
 import com.example.queuesystemcore.common.application.QueueFacade;
+import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.ui.rest.request.QueueRequest;
 import com.example.queuesystemcore.ddd.queue.ui.rest.response.QueueNumberResponse;
 import jakarta.validation.Valid;
@@ -25,10 +26,10 @@ public class QueueController {
     @PostMapping(path = "/add")
     ResponseEntity<QueueNumberResponse> queuePetitioner(@RequestBody @Valid QueueRequest request) {
 
-        String number = queueFacade.queuePetitioner(
+        QueueNumberDto number = queueFacade.queuePetitioner(
                 UUID.fromString(request.getQueueConfigurationUUID()),
                 UUID.fromString(request.getLocalizationUUID()));
 
-        return ResponseEntity.ok(QueueNumberResponse.valueOf(number));
+        return ResponseEntity.ok(QueueNumberResponse.valueOf(number.getQueueNumber(), number.getQueueNumberPdf()));
     }
 }

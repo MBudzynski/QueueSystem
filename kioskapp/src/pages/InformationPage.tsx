@@ -7,12 +7,11 @@ export const InformationPage = () => {
     const [number, setNumber] = useState<string>('');
     const location = useLocation();
     const navigate = useNavigate();
-    let queueNumber = location.state as QueueNumber;
-
+    let queueNumber = location.state as {queueNumber: QueueNumber};
 
     useEffect(() => {
-        if(queueNumber && queueNumber.queueNumber ){
-            setNumber(queueNumber.queueNumber);
+        if(queueNumber){
+            setNumber(queueNumber.queueNumber.queueNumber);
         }
 
         const timer = setTimeout(() => {

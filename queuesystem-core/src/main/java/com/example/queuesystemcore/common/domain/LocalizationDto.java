@@ -4,9 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.UUID;
-
-@Builder
 @Getter
+@Builder
 public class LocalizationDto {
     private Long locationId;
     private UUID locationUUID;
