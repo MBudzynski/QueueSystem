@@ -41,7 +41,7 @@ export const EkioskMainPage = () => {
         let response = await queuePetitioner(locationUUID, queueConfigurationUUID);
         let queueNumber = response.data;
 
-        navigate('/informationPage', { state: {queueNumber}});
+        navigate('/informationPage', { state: { queueNumber }});
     }
 
     document.body.style.display = '';

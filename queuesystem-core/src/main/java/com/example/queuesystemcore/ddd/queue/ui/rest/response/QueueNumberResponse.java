@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QueueNumberResponse {
-    private String queueNumber;
-    private String queueNumberPfd;
+    private String number;
+    private String numberPdf;
 
     public static QueueNumberResponse valueOf(String queueNumber, String queueNumberPdf){
         return new QueueNumberResponse(queueNumber, queueNumberPdf);
