@@ -3,9 +3,11 @@ package com.example.queuesystemcore.ddd.queue.aplication;
 import com.example.queuesystemcore.common.application.LocalizationFacade;
 import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.common.domain.LocalizationDto;
+import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
+import com.example.queuesystemcore.infrastructure.pdf.PdfFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,10 @@ class QueueService implements QueueFacade {
     private final QueueRepository queueRepository;
     private final QueueConfigurationProvider queueConfigurationProvider;
     private final LocalizationFacade localizationFacade;
+    private final PdfFacade pdfFacade;
 
     @Transactional
-    public String queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
+    public QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
 
         LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
         QueueConfigurationData queueConfiguration = queueConfigurationProvider
@@ -52,7 +55,9 @@ class QueueService implements QueueFacade {
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
-        return fullNumber;
+        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(fullNumber, localizationDto.getPathToLogoFile(), localizationDto.getInstitutionName());
+
+        return new QueueNumberDto(fullNumber, queueNumberPdf);
     }
 
     private String formatNumberToSting(Integer number) {

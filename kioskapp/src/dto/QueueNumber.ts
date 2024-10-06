@@ -1,3 +1,4 @@
 export type QueueNumber = {
-    queueNumber: string;
+    number: string;
+    numberPdf: string;
 }
