@@ -20,29 +20,25 @@ public class QueueNumberTemplate {
             PdfWriter.getInstance(document, out);
             document.open();
 
-            ClassPathResource logoFile = new ClassPathResource(logoFilePath);
-            Image logo = Image.getInstance(logoFile.getURL());
-            logo.scaleToFit(100, 100);  // Rozmiar logo
-            logo.setAlignment(Element.ALIGN_CENTER);
-            document.add(logo);
-
-            // Dodaj nazwę firmy
             Font companyFont = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
             Paragraph companyName = new Paragraph(institutionName, companyFont);
             companyName.setAlignment(Element.ALIGN_CENTER);
             document.add(companyName);
 
-            // Dodaj odstęp
-            document.add(new Paragraph(" "));  // pusta linia jako odstęp
+            ClassPathResource logoFile = new ClassPathResource(logoFilePath);
+            Image logo = Image.getInstance(logoFile.getURL());
+            logo.scaleToFit(75, 75);
+            logo.setAlignment(Element.ALIGN_CENTER);
+            document.add(logo);
 
-            // Dodaj napis "Twój numer to:"
-            Font textFont = new Font(Font.FontFamily.HELVETICA, 14, Font.NORMAL);
+            document.add(new Paragraph(" "));
+
+            Font textFont = new Font(Font.FontFamily.HELVETICA, 15, Font.NORMAL);
             Paragraph queueText = new Paragraph("Twój numer to:", textFont);
             queueText.setAlignment(Element.ALIGN_CENTER);
             document.add(queueText);
 
-            // Dodaj numer
-            Font numberFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD);
+            Font numberFont = new Font(Font.FontFamily.HELVETICA, 35, Font.BOLD);
             Paragraph queueNumberParagraph = new Paragraph(String.valueOf(queueNumber), numberFont);
             queueNumberParagraph.setAlignment(Element.ALIGN_CENTER);
             document.add(queueNumberParagraph);
