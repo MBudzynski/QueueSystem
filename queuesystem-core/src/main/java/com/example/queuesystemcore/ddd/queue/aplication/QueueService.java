@@ -55,7 +55,7 @@ class QueueService implements QueueFacade {
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
-        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(number, localizationDto.getPathToLogoFile(), localizationDto.getInstitutionName());
+        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(fullNumber, localizationDto.getPathToLogoFile(), localizationDto.getInstitutionName());
 
         return new QueueNumberDto(fullNumber, queueNumberPdf);
     }

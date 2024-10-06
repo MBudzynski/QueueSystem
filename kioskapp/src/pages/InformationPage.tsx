@@ -9,22 +9,22 @@ export const InformationPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     let queueNumber = location.state.queueNumber as QueueNumber;
-    const iframeRef = useRef<HTMLIFrameElement | null>(null); ;
+    const queueNumberPDF = useRef<HTMLIFrameElement | null>(null); ;
 
 
     useEffect(() => {
         if(queueNumber){
             setNumber(queueNumber.number);
-        }
+            let pdf = preparePdf(queueNumber.numberPdf);
+            const hidePDF = queueNumberPDF.current;
+            if (hidePDF) {
+                hidePDF.src = pdf;
+                hidePDF.onload = () => {
+                    hidePDF.contentWindow?.focus();
+                    hidePDF.contentWindow?.print();
+                };
+            }
 
-        let pdf = preparePdf(queueNumber.numberPdf);
-        const iframe = iframeRef.current;
-        if (iframe) {
-            iframe.src = pdf;
-            iframe.onload = () => {
-                iframe.contentWindow?.focus();
-                iframe.contentWindow?.print();
-            };
         }
 
         const timer = setTimeout(() => {
@@ -39,7 +39,7 @@ export const InformationPage = () => {
             <div className="header">Odbierz wydrukowany numerek i poczekaj na jego wywołanie</div>
             <div className="number">{number}</div>
 
-            <iframe ref={iframeRef} style={{display: 'none'}} title="Ukryty PDF Iframe"/>
+            <iframe ref={queueNumberPDF} style={{display: 'none'}}/>
         </div>
 
     );
