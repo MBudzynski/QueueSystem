@@ -21,6 +21,6 @@ public class QueueNumberMapper {
     }
 
     public QueueNumberDto toDto(String fullQueueNumber, String queueNumberPdf){
-        return new QueueNumberDto();
+        return new QueueNumberDto(fullQueueNumber, queueNumberPdf);
     }
 }
