@@ -18,4 +18,5 @@ public class LocalizationData {
     private String postCode;
     private String postOffice;
     private String pathToLogoFile;
+    private String queueName;
 }

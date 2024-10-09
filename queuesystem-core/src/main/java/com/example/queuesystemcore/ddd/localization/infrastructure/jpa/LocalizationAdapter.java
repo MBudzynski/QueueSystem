@@ -5,6 +5,7 @@ import com.example.queuesystemcore.ddd.localization.domain.LocalizationRepositor
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,5 +20,13 @@ public class LocalizationAdapter implements LocalizationRepository {
         return Optional
                 .ofNullable(repository.findByLocationUUID(localizationUUID))
                 .map(Localization::translate);
+    }
+
+    @Override
+    public List<String> getAllQueueNames() {
+        return repository.getAllQueueNames()
+                .stream()
+                .filter(queueName -> queueName != null && !queueName.isBlank())
+                .toList();
     }
 }

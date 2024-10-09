@@ -6,7 +6,8 @@ import com.example.queuesystemcore.common.domain.LocalizationDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
 import com.example.queuesystemcore.ddd.queue.domain.QueueData;
-import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
+import com.example.queuesystemcore.ddd.queue.aplication.mapper.QueueNumberMapper;
+import com.example.queuesystemcore.infrastructure.message_broker.MessageBrokerClient;
 import com.example.queuesystemcore.infrastructure.pdf.PdfFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 class QueueService implements QueueFacade {
 
-    private final QueueRepository queueRepository;
+    private final QueueNumberMapper queueNumberMapper;
+    private final MessageBrokerClient messageBrokerClient;
     private final QueueConfigurationProvider queueConfigurationProvider;
     private final LocalizationFacade localizationFacade;
     private final PdfFacade pdfFacade;
@@ -41,6 +43,7 @@ class QueueService implements QueueFacade {
         Integer number = queueConfiguration.getNextNumber();
         String fullNumber = sign + formatNumberToSting(number);
 
+        //todo maybe to remove
         QueueData toQueue = QueueData.builder()
                 .sign(sign)
                 .num(number)
@@ -51,13 +54,13 @@ class QueueService implements QueueFacade {
                 .creationDate(LocalDate.now())
                 .build();
 
-        queueRepository.addToQueue(toQueue);
+        messageBrokerClient.sendNewQueueNumber(localizationDto.getQueueName(), queueNumberMapper.toDto(toQueue));
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
         String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(fullNumber, localizationDto.getPathToLogoFile(), localizationDto.getInstitutionName());
 
-        return new QueueNumberDto(fullNumber, queueNumberPdf);
+        return queueNumberMapper.toDto(fullNumber, queueNumberPdf);
     }
 
     private String formatNumberToSting(Integer number) {

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -24,5 +25,10 @@ class LocalizationService implements LocalizationFacade {
                 .findLocalizationByUUID(localizationUUID)
                 .map(LocalizationDtoMapper::valueOf)
                 .orElseThrow(() ->  new LocalizationNoExistException("localization no exist"));
+    }
+
+    @Override
+    public List<String> getAllQueueNames() {
+        return localizationRepository.getAllQueueNames();
     }
 }

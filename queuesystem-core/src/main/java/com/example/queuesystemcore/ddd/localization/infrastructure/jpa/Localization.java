@@ -24,6 +24,7 @@ public class Localization {
     private String postCode;
     private String postOffice;
     private String pathToLogoFile;
+    private String queueName;
 
     public LocalizationData translate() {
         return new LocalizationData(
@@ -35,6 +36,7 @@ public class Localization {
                 houseNumber,
                 postCode,
                 postOffice,
-                pathToLogoFile);
+                pathToLogoFile,
+                queueName);
     }
 }

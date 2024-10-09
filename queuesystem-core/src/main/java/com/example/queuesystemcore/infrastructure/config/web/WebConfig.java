@@ -1,4 +1,4 @@
-package com.example.queuesystemcore.infrastructure.config;
+package com.example.queuesystemcore.infrastructure.config.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

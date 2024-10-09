@@ -17,6 +17,7 @@ public class LocalizationDtoMapper {
                 .postCode(data.getPostCode())
                 .postOffice(data.getPostOffice())
                 .pathToLogoFile(data.getPathToLogoFile())
+                .queueName(data.getQueueName())
                 .build();
     }
 }
