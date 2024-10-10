@@ -1,0 +1,21 @@
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: validate
+  show-sql: true
+
+spring.datasource:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/queue-system
+  username: -----
+  password: -----
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: queue-system-cor
+    password: Test123
+    virtual-host: queue-system
+
+server:
+  port: 8086
