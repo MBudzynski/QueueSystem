@@ -3,7 +3,7 @@ package com.example.queuesystemcore.ddd.queue.aplication;
 import com.example.queuesystemcore.common.application.LocalizationFacade;
 import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.common.domain.LocalizationDto;
-import com.example.queuesystemcore.common.domain.QueueNumberDataDto;
+import com.example.queuesystemcore.common.domain.QueueDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.aplication.mapper.QueueNumberMapper;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
@@ -41,7 +41,7 @@ class QueueService implements QueueFacade {
         Integer number = queueConfiguration.getNextNumber();
         String fullNumber = sign + formatNumberToSting(number);
 
-        QueueNumberDataDto dto = queueNumberMapper.toDto(sign, number, fullNumber, queueConfiguration.getQueueConfigurationId());
+        QueueDto dto = queueNumberMapper.toDto(sign, number, fullNumber, localizationDto.getLocationId(), queueConfiguration.getQueueConfigurationId());
 
         messageBrokerClient.sendNewQueueNumber(localizationDto.getQueueName(), dto);
 

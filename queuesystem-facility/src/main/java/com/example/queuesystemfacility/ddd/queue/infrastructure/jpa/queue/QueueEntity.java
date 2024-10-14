@@ -34,7 +34,7 @@ class QueueEntity {
                 .sign(data.getSign())
                 .num(data.getNum())
                 .fullNumber(data.getFullNumber())
-                .localizationId(data.getLocalizationId())
+                .localizationId(data.getFacilityId())
                 .queueConfigurationId(data.getQueueConfigurationId())
                 .creationDate(data.getCreationDate())
                 .creationTime(data.getCreationTime())

@@ -15,7 +15,7 @@ public class Queue {
     private Integer num;
     private String fullNumber;
     private Long queueConfigurationId;
-    private Long localizationId;
+    private Long facilityId;
     private LocalDate creationDate;
     private LocalTime creationTime;
 }

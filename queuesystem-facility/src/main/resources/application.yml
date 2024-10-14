@@ -1,3 +1,6 @@
+server:
+  port: 8086
+
 spring.jpa:
   database: POSTGRESQL
   hibernate.ddl-auto: validate
@@ -9,5 +12,15 @@ spring.datasource:
   username: -----
   password: -----
 
-server:
-  port: 8086
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: example-facility
+    password: Facility123
+    virtual-host: queue-system
+
+custom:
+  configuration:
+    queue-name: test123
+    facilityId: 1

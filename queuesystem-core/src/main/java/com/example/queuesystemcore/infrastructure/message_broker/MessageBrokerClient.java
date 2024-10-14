@@ -1,8 +1,8 @@
 package com.example.queuesystemcore.infrastructure.message_broker;
 
-import com.example.queuesystemcore.common.domain.QueueNumberDataDto;
+import com.example.queuesystemcore.common.domain.QueueDto;
 
 public interface MessageBrokerClient {
 
-    void sendNewQueueNumber(String queueName, QueueNumberDataDto object);
+    void sendNewQueueNumber(String queueName, QueueDto object);
 }

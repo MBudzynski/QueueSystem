@@ -12,7 +12,7 @@ class QueueAdapter implements QueueRepository {
     private final QueueJpaRepository queueJpaRepository;
 
     @Override
-    public void addToQueue(Queue queueData) {
-        queueJpaRepository.save(QueueEntity.mutateTo(queueData));
+    public void addToQueue(Queue queue) {
+        queueJpaRepository.save(QueueEntity.mutateTo(queue));
     }
 }
