@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class KioskData {
+public class Kiosk {
 
     private Long kioskId;
     private String kioskUUID;
@@ -15,5 +15,5 @@ public class KioskData {
     private String kioskName;
     private String kioskDescription;
     private String backgroundColor;
-    private List<KioskButtonData> kioskButtons;
+    private List<KioskButton> kioskButtons;
 }

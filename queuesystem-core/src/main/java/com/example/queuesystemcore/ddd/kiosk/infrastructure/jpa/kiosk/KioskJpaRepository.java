@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface KioskJpaRepository extends JpaRepository<Kiosk, Long> {
+public interface KioskJpaRepository extends JpaRepository<KioskEntity, Long> {
 
     @Query(value = "SELECT * FROM kiosk WHERE kioskuuid like :uuid AND localization_id = :localizationId",nativeQuery = true)
-    Optional<Kiosk> findKioskByUuidAndLocalization(String uuid, Long localizationId);
+    Optional<KioskEntity> findKioskByUuidAndLocalization(String uuid, Long localizationId);
 }

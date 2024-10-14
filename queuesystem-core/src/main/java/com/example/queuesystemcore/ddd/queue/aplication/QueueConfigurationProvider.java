@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationRepository;
 import com.example.queuesystemcore.ddd.queue.exceprion.QueueConfigurationNoExistException;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ class QueueConfigurationProvider {
 
     private final QueueConfigurationRepository queueConfigurationRepository;
 
-    public QueueConfigurationData findQueueConfigurationByUUID(UUID uuid, Long localizationId){
+    public QueueConfiguration findQueueConfigurationByUUID(UUID uuid, Long localizationId){
         return queueConfigurationRepository
                 .findQueueConfigurationByUuid(uuid, localizationId)
                 .orElseThrow(() -> new QueueConfigurationNoExistException("queue configuration no exist"));

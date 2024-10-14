@@ -1,13 +1,14 @@
 package com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kioskbutton;
 
-import com.example.queuesystemcore.ddd.kiosk.domain.KioskButtonData;
-import com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kiosk.Kiosk;
+import com.example.queuesystemcore.ddd.kiosk.domain.KioskButton;
+import com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kiosk.KioskEntity;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "kiosk_button")
 @NoArgsConstructor
-public class KioskButton {
+public class KioskButtonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +19,10 @@ public class KioskButton {
 
     @ManyToOne
     @JoinColumn(name="kiosk_id", nullable=false)
-    private Kiosk kiosk;
+    private KioskEntity kiosk;
 
-    public KioskButtonData translate() {
-        return new KioskButtonData(
+    public KioskButton translate() {
+        return new KioskButton(
                 kioskButtonId,
                 kioskSubButtonId,
                 buttonText,

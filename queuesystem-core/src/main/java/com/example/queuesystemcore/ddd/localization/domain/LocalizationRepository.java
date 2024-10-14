@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface LocalizationRepository {
 
-    Optional<LocalizationData> findLocalizationByUUID(UUID localizationUUID);
+    Optional<Localization> findLocalizationByUUID(UUID localizationUUID);
 
     List<String> getAllQueueNames();
 }

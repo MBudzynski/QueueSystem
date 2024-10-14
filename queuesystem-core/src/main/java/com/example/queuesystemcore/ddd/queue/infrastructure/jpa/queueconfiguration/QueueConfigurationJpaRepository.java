@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfiguration, Long> {
+interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfigurationEntity, Long> {
 
     @Query(value = "SELECT * FROM queue_configuration WHERE queue_configuration_uuid like :uuid AND localization_id = :localizationId",nativeQuery = true)
-    QueueConfiguration findByUUIDAndLocalizationId(String uuid, Long localizationId);
+    QueueConfigurationEntity findByUUIDAndLocalizationId(String uuid, Long localizationId);
 
     @Modifying
     @Query(value = "UPDATE queue_configuration SET current_number = :currentNumber WHERE queue_configuration_id = :queryConfigurationId",nativeQuery = true)

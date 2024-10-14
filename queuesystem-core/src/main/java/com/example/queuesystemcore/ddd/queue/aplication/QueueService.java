@@ -6,7 +6,7 @@ import com.example.queuesystemcore.common.domain.LocalizationDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDataDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.aplication.mapper.QueueNumberMapper;
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import com.example.queuesystemcore.infrastructure.message_broker.MessageBrokerClient;
 import com.example.queuesystemcore.infrastructure.pdf.PdfFacade;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ class QueueService implements QueueFacade {
     public QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
 
         LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        QueueConfigurationData queueConfiguration = queueConfigurationProvider
+        QueueConfiguration queueConfiguration = queueConfigurationProvider
                 .findQueueConfigurationByUUID(
                         queueConfigurationUUID,
                         localizationDto.getLocationId()

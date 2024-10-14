@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class KioskButtonData {
+public class KioskButton {
 
     private Long kioskButtonId;
     private Long kioskSubButtonId;

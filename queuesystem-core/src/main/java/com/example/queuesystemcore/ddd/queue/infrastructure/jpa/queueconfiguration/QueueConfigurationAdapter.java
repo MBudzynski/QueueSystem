@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +18,10 @@ class QueueConfigurationAdapter implements QueueConfigurationRepository {
     private final QueueConfigurationJpaRepository repository;
 
     @Override
-    public Optional<QueueConfigurationData> findQueueConfigurationByUuid(UUID uuid, Long localizationId){
+    public Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long localizationId){
         return Optional
                 .ofNullable(repository.findByUUIDAndLocalizationId(uuid.toString(), localizationId))
-                .map(QueueConfiguration::translate);
+                .map(QueueConfigurationEntity::translate);
     }
 
     @Override
@@ -30,19 +30,19 @@ class QueueConfigurationAdapter implements QueueConfigurationRepository {
     }
 
     @Override
-    public List<QueueConfigurationData> getAllQueueConfiguration() {
+    public List<QueueConfiguration> getAllQueueConfiguration() {
         return repository
                 .findAll()
                 .stream()
-                .map(QueueConfiguration::translate)
+                .map(QueueConfigurationEntity::translate)
                 .toList();
     }
 
     @Override
-    public void save(List<QueueConfigurationData> queueConfigurations) {
+    public void save(List<QueueConfiguration> queueConfigurations) {
         repository.saveAll(queueConfigurations
                 .stream()
-                .map(QueueConfiguration::mutateTo)
+                .map(QueueConfigurationEntity::mutateTo)
                 .toList());
     }
 }

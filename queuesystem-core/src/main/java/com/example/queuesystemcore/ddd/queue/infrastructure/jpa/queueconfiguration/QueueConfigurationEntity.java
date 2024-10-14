@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class QueueConfiguration {
+@Table(name = "queue_configuration")
+class QueueConfigurationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,8 @@ class QueueConfiguration {
     private Integer numberTo;
     private String sign;
 
-    public QueueConfigurationData translate() {
-        return new QueueConfigurationData(
+    public QueueConfiguration translate() {
+        return new QueueConfiguration(
                 queueConfigurationId,
                 queueConfigurationUUID,
                 configurationDescription,
@@ -36,8 +37,8 @@ class QueueConfiguration {
                 sign);
     }
 
-    static QueueConfiguration mutateTo(QueueConfigurationData data) {
-        return QueueConfiguration.builder()
+    static QueueConfigurationEntity mutateTo(QueueConfiguration data) {
+        return QueueConfigurationEntity.builder()
                 .queueConfigurationId(data.getQueueConfigurationId())
                 .queueConfigurationUUID(data.getQueueConfigurationUUID())
                 .configurationDescription(data.getConfigurationDescription())

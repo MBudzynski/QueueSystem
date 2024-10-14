@@ -4,7 +4,7 @@ import com.example.queuesystemcore.common.application.KioskFacade;
 import com.example.queuesystemcore.common.application.LocalizationFacade;
 import com.example.queuesystemcore.common.domain.LocalizationDto;
 import com.example.queuesystemcore.common.util.FileManagement;
-import com.example.queuesystemcore.ddd.kiosk.domain.KioskData;
+import com.example.queuesystemcore.ddd.kiosk.domain.Kiosk;
 import com.example.queuesystemcore.ddd.kiosk.ui.rest.response.KioskConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ class KioskService implements KioskFacade {
     public KioskConfiguration findKioskButtons(UUID kioskUUID, UUID localizationUUID) {
 
         LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        KioskData kioskData = kioskProvider.findKioskData(kioskUUID, localizationDto.getLocationId());
+        Kiosk kiosk = kioskProvider.findKioskData(kioskUUID, localizationDto.getLocationId());
         String institutionLogo;
 
         try {
@@ -44,8 +44,8 @@ class KioskService implements KioskFacade {
                 .postCode(localizationDto.getPostCode())
                 .postOffice(localizationDto.getPostOffice())
                 .institutionLogoFile(institutionLogo)
-                .backgroundColor(kioskData.getBackgroundColor())
-                .kioskButtons(kioskData.getKioskButtons())
+                .backgroundColor(kiosk.getBackgroundColor())
+                .kioskButtons(kiosk.getKioskButtons())
                 .build();
     }
 }

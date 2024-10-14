@@ -1,4 +1,4 @@
-package com.example.queuesystemcore.ddd.queue.domain;
+package com.example.queuesystemfacility.ddd.queue.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 @Data
 @Builder(toBuilder = true)
-public class QueueData {
+public class Queue {
 
     private Long queueId;
     private String sign;

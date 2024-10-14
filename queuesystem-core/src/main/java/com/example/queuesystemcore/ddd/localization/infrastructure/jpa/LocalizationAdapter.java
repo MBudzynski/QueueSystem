@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.localization.infrastructure.jpa;
 
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationData;
+import com.example.queuesystemcore.ddd.localization.domain.Localization;
 import com.example.queuesystemcore.ddd.localization.domain.LocalizationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,10 @@ public class LocalizationAdapter implements LocalizationRepository {
     private final LocalizationJpaRepository repository;
 
     @Override
-    public Optional<LocalizationData> findLocalizationByUUID(UUID localizationUUID) {
+    public Optional<Localization> findLocalizationByUUID(UUID localizationUUID) {
         return Optional
                 .ofNullable(repository.findByLocationUUID(localizationUUID))
-                .map(Localization::translate);
+                .map(LocalizationEntity::translate);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,8 +18,8 @@ class QueueCounterResetScheduler {
 
     @Scheduled(cron = "${custom.schedule.queue-configuration.cron}")
     public void resetCurrenNumberAtQueueConfigurations() {
-        List<QueueConfigurationData> allQueueConfigurations = queueConfigurationRepository.getAllQueueConfiguration();
-        allQueueConfigurations.forEach(QueueConfigurationData::restartCurrentNumber);
+        List<QueueConfiguration> allQueueConfigurations = queueConfigurationRepository.getAllQueueConfiguration();
+        allQueueConfigurations.forEach(QueueConfiguration::restartCurrentNumber);
         queueConfigurationRepository.save(allQueueConfigurations);
     }
 }

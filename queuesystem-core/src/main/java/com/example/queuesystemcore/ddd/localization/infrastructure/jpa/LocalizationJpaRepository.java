@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface LocalizationJpaRepository extends JpaRepository<Localization, Long> {
+public interface LocalizationJpaRepository extends JpaRepository<LocalizationEntity, Long> {
 
-    Localization findByLocationUUID(UUID lcoationUUID);
+    LocalizationEntity findByLocationUUID(UUID lcoationUUID);
 
-    @Query(value = "SELECT l.queueName FROM Localization l")
+    @Query(value = "SELECT l.queueName FROM LocalizationEntity l")
     List<String> getAllQueueNames();
 }

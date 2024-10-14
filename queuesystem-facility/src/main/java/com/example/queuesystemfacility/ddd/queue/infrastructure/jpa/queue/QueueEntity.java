@@ -1,10 +1,7 @@
-package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queue;
+package com.example.queuesystemfacility.ddd.queue.infrastructure.jpa.queue;
 
-import com.example.queuesystemcore.ddd.queue.domain.QueueData;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.queuesystemfacility.ddd.queue.domain.Queue;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -16,7 +13,8 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class Queue {
+@Table(name = "queue")
+class QueueEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +27,8 @@ class Queue {
     private LocalDate creationDate;
     private LocalTime creationTime;
 
-    static Queue mutateTo(QueueData data){
-        return Queue
+    static QueueEntity mutateTo(Queue data){
+        return QueueEntity
                 .builder()
                 .queueId(data.getQueueId())
                 .sign(data.getSign())

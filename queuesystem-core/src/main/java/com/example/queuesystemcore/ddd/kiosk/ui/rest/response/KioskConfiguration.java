@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.kiosk.ui.rest.response;
 
-import com.example.queuesystemcore.ddd.kiosk.domain.KioskButtonData;
+import com.example.queuesystemcore.ddd.kiosk.domain.KioskButton;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,5 +18,5 @@ public class KioskConfiguration {
     private String postOffice;
     private String institutionLogoFile;
     private String backgroundColor;
-    private List<KioskButtonData> kioskButtons;
+    private List<KioskButton> kioskButtons;
 }

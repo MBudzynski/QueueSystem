@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class LocalizationData {
+public class Localization {
 
     private Long locationId;
     private UUID locationUUID;

@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kiosk;
 
-import com.example.queuesystemcore.ddd.kiosk.domain.KioskData;
+import com.example.queuesystemcore.ddd.kiosk.domain.Kiosk;
 import com.example.queuesystemcore.ddd.kiosk.domain.KioskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,9 +15,9 @@ class KioskAdapter implements KioskRepository {
     private final KioskJpaRepository repository;
 
     @Override
-    public Optional<KioskData> findKioskData(UUID kioskUUID, Long localizationId) {
+    public Optional<Kiosk> findKioskData(UUID kioskUUID, Long localizationId) {
         return repository
                 .findKioskByUuidAndLocalization(kioskUUID.toString(), localizationId)
-                .map(Kiosk::translate);
+                .map(KioskEntity::translate);
     }
 }

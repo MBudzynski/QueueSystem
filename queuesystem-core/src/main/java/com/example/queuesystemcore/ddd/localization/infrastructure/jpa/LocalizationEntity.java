@@ -1,17 +1,15 @@
 package com.example.queuesystemcore.ddd.localization.infrastructure.jpa;
 
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationData;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.queuesystemcore.ddd.localization.domain.Localization;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
-public class Localization {
+@Table(name = "localization")
+public class LocalizationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +24,8 @@ public class Localization {
     private String pathToLogoFile;
     private String queueName;
 
-    public LocalizationData translate() {
-        return new LocalizationData(
+    public Localization translate() {
+        return new Localization(
                 locationId,
                 locationUUID,
                 institutionName,

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class QueueConfigurationData {
+public class QueueConfiguration {
     private Long queueConfigurationId;
     private String queueConfigurationUUID;
     private String configurationDescription;

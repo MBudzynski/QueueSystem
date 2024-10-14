@@ -6,11 +6,11 @@ import java.util.UUID;
 
 public interface QueueConfigurationRepository {
 
-    Optional<QueueConfigurationData> findQueueConfigurationByUuid(UUID uuid, Long localizationId);
+    Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long localizationId);
 
     void updateCurrentNumberInQueueConfigurationId(Long queueConfigurationId, Integer currentNumber);
 
-    List<QueueConfigurationData> getAllQueueConfiguration();
+    List<QueueConfiguration> getAllQueueConfiguration();
 
-    void save(List<QueueConfigurationData> queueConfigurations);
+    void save(List<QueueConfiguration> queueConfigurations);
 }

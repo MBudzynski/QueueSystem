@@ -1,7 +1,7 @@
 package com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kiosk;
 
-import com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kioskbutton.KioskButton;
-import com.example.queuesystemcore.ddd.kiosk.domain.KioskData;
+import com.example.queuesystemcore.ddd.kiosk.infrastructure.jpa.kioskbutton.KioskButtonEntity;
+import com.example.queuesystemcore.ddd.kiosk.domain.Kiosk;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +9,8 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-public class Kiosk {
+@Table(name = "kiosk")
+public class KioskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +21,10 @@ public class Kiosk {
     private String kioskDescription;
     private String backgroundColor;
     @OneToMany(mappedBy="kiosk")
-    private List<KioskButton> kioskButtons;
+    private List<KioskButtonEntity> kioskButtons;
 
-    public KioskData translate() {
-        return new KioskData(
+    public Kiosk translate() {
+        return new Kiosk(
                 kioskId,
                 kioskUUID,
                 localizationId,
@@ -32,7 +33,7 @@ public class Kiosk {
                 backgroundColor,
                 kioskButtons
                         .stream()
-                        .map(KioskButton::translate)
+                        .map(KioskButtonEntity::translate)
                         .toList());
     }
 }
