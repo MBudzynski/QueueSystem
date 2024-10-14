@@ -1,6 +1,5 @@
 package com.example.queuesystemcore.ddd.queue.domain;
 
-import com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queue.Queue;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,18 +18,4 @@ public class QueueData {
     private Long localizationId;
     private LocalDate creationDate;
     private LocalTime creationTime;
-
-    public Queue toEntity(){
-        return new Queue(
-                this.queueId,
-                this.sign,
-                this.num,
-                this.fullNumber,
-                this.localizationId,
-                this.queueConfigurationId,
-                this.creationDate,
-                this.creationTime);
-    }
-
-
 }

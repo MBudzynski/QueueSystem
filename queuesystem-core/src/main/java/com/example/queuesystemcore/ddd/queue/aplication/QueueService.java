@@ -3,10 +3,10 @@ package com.example.queuesystemcore.ddd.queue.aplication;
 import com.example.queuesystemcore.common.application.LocalizationFacade;
 import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.common.domain.LocalizationDto;
+import com.example.queuesystemcore.common.domain.QueueNumberDataDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
-import com.example.queuesystemcore.ddd.queue.domain.QueueData;
 import com.example.queuesystemcore.ddd.queue.aplication.mapper.QueueNumberMapper;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationData;
 import com.example.queuesystemcore.infrastructure.message_broker.MessageBrokerClient;
 import com.example.queuesystemcore.infrastructure.pdf.PdfFacade;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Slf4j
@@ -43,22 +41,16 @@ class QueueService implements QueueFacade {
         Integer number = queueConfiguration.getNextNumber();
         String fullNumber = sign + formatNumberToSting(number);
 
-        //todo maybe to remove
-        QueueData toQueue = QueueData.builder()
-                .sign(sign)
-                .num(number)
-                .fullNumber(fullNumber)
-                .queueConfigurationId(queueConfiguration.getQueueConfigurationId())
-                .localizationId(localizationDto.getLocationId())
-                .creationTime(LocalTime.now())
-                .creationDate(LocalDate.now())
-                .build();
+        QueueNumberDataDto dto = queueNumberMapper.toDto(sign, number, fullNumber, queueConfiguration.getQueueConfigurationId());
 
-        messageBrokerClient.sendNewQueueNumber(localizationDto.getQueueName(), queueNumberMapper.toDto(toQueue));
+        messageBrokerClient.sendNewQueueNumber(localizationDto.getQueueName(), dto);
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
-        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(fullNumber, localizationDto.getPathToLogoFile(), localizationDto.getInstitutionName());
+        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(
+                fullNumber,
+                localizationDto.getPathToLogoFile(),
+                localizationDto.getInstitutionName());
 
         return queueNumberMapper.toDto(fullNumber, queueNumberPdf);
     }

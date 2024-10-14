@@ -15,12 +15,21 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class QueueNumberDataDto implements Serializable {
 
-    private Long queueId;
     private String sign;
     private Integer num;
     private String fullNumber;
     private Long queueConfigurationId;
-    private Long localizationId;
     private LocalDate creationDate;
     private LocalTime creationTime;
+
+    public static QueueNumberDataDto valueOf(String sign, Integer num, String fullNumber, Long queueConfigurationId) {
+        return QueueNumberDataDto.builder()
+                .sign(sign)
+                .num(num)
+                .fullNumber(fullNumber)
+                .queueConfigurationId(queueConfigurationId)
+                .creationDate(LocalDate.now())
+                .creationTime(LocalTime.now())
+                .build();
+    }
 }

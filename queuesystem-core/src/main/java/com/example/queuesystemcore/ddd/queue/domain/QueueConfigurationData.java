@@ -8,7 +8,7 @@ import lombok.Data;
 public class QueueConfigurationData {
     private Long queueConfigurationId;
     private String queueConfigurationUUID;
-    private String queueName;
+    private String configurationDescription;
     private Long localizationId;
     private Integer currentNumber;
     private Integer numberFrom;
@@ -21,7 +21,12 @@ public class QueueConfigurationData {
             return number;
         }
 
-        return numberFrom;
+        restartCurrentNumber();
+        return currentNumber + 1;
+    }
+
+    public void restartCurrentNumber() {
+        this.currentNumber = this.numberFrom - 1;
     }
 
 }
