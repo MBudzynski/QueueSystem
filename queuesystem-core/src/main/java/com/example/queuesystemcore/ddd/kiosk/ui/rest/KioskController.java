@@ -27,7 +27,7 @@ public class KioskController {
 
         KioskConfiguration kioskConfiguration = kioskFacade.findKioskButtons(
                 UUID.fromString(request.getKioskUUID()),
-                UUID.fromString(request.getLocalizationUUID())
+                UUID.fromString(request.getFacilityUUID())
         );
 
         return ResponseEntity.ok(kioskConfiguration);

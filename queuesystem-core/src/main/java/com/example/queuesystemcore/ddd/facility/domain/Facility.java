@@ -1,14 +1,16 @@
-package com.example.queuesystemcore.common.domain;
+package com.example.queuesystemcore.ddd.facility.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.UUID;
-@Getter
-@Builder
-public class LocalizationDto {
-    private Long locationId;
-    private UUID locationUUID;
+
+@Data
+@AllArgsConstructor
+public class Facility {
+
+    private Long facilityId;
+    private UUID facilityUUID;
     private String institutionName;
     private String city;
     private String street;

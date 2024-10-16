@@ -16,7 +16,7 @@ public class KioskEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kioskId;
     private String kioskUUID;
-    private Long localizationId;
+    private Long facilityId;
     private String kioskName;
     private String kioskDescription;
     private String backgroundColor;
@@ -27,7 +27,7 @@ public class KioskEntity {
         return new Kiosk(
                 kioskId,
                 kioskUUID,
-                localizationId,
+                facilityId,
                 kioskName,
                 kioskDescription,
                 backgroundColor,

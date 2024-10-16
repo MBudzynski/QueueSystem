@@ -1,6 +1,6 @@
 package com.example.queuesystemcore.infrastructure.config.rabbit;
 
-import com.example.queuesystemcore.common.application.LocalizationFacade;
+import com.example.queuesystemcore.common.application.FacilityFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Queue;
@@ -20,8 +20,8 @@ public class RabbitMqConfig {
 
 
     @Bean
-    public RabbitAdmin createQueues(ConnectionFactory connectionFactory, LocalizationFacade localizationFacade) {
-        List<String> queueNames = localizationFacade.getAllQueueNames();
+    public RabbitAdmin createQueues(ConnectionFactory connectionFactory, FacilityFacade facilityFacade) {
+        List<String> queueNames = facilityFacade.getAllQueueNames();
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         queueNames.forEach(queueName -> {
             Queue queue = new Queue(queueName, true);

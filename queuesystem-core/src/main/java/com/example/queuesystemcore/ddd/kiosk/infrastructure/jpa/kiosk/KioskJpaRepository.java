@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface KioskJpaRepository extends JpaRepository<KioskEntity, Long> {
 
-    @Query(value = "SELECT * FROM kiosk WHERE kioskuuid like :uuid AND localization_id = :localizationId",nativeQuery = true)
-    Optional<KioskEntity> findKioskByUuidAndLocalization(String uuid, Long localizationId);
+    @Query(value = "SELECT * FROM kiosk WHERE kioskuuid like :uuid AND facility_id = :facilityId",nativeQuery = true)
+    Optional<KioskEntity> findKioskByUuidAndFacility(String uuid, Long facilityId);
 }

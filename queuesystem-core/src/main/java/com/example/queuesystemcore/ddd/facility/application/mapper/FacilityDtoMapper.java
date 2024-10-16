@@ -1,15 +1,15 @@
-package com.example.queuesystemcore.ddd.localization.application.mapper;
+package com.example.queuesystemcore.ddd.facility.application.mapper;
 
-import com.example.queuesystemcore.common.domain.LocalizationDto;
-import com.example.queuesystemcore.ddd.localization.domain.Localization;
+import com.example.queuesystemcore.common.domain.FacilityDto;
+import com.example.queuesystemcore.ddd.facility.domain.Facility;
 
-public class LocalizationDtoMapper {
+public class FacilityDtoMapper {
 
-    public static LocalizationDto valueOf(Localization data) {
-        return LocalizationDto
+    public static FacilityDto valueOf(Facility data) {
+        return FacilityDto
                 .builder()
-                .locationId(data.getLocationId())
-                .locationUUID(data.getLocationUUID())
+                .facilityId(data.getFacilityId())
+                .facilityUUID(data.getFacilityUUID())
                 .institutionName(data.getInstitutionName())
                 .city(data.getCity())
                 .street(data.getStreet())

@@ -14,9 +14,9 @@ class QueueConfigurationProvider {
 
     private final QueueConfigurationRepository queueConfigurationRepository;
 
-    public QueueConfiguration findQueueConfigurationByUUID(UUID uuid, Long localizationId){
+    public QueueConfiguration findQueueConfigurationByUUID(UUID uuid, Long facilityId){
         return queueConfigurationRepository
-                .findQueueConfigurationByUuid(uuid, localizationId)
+                .findQueueConfigurationByUuid(uuid, facilityId)
                 .orElseThrow(() -> new QueueConfigurationNoExistException("queue configuration no exist"));
     }
 

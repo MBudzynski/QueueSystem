@@ -18,9 +18,9 @@ class QueueConfigurationAdapter implements QueueConfigurationRepository {
     private final QueueConfigurationJpaRepository repository;
 
     @Override
-    public Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long localizationId){
+    public Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long facilityId){
         return Optional
-                .ofNullable(repository.findByUUIDAndLocalizationId(uuid.toString(), localizationId))
+                .ofNullable(repository.findByUUIDAndFacilityId(uuid.toString(), facilityId))
                 .map(QueueConfigurationEntity::translate);
     }
 

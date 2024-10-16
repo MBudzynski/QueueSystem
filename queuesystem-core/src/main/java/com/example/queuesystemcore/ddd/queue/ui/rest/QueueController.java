@@ -28,7 +28,7 @@ public class QueueController {
 
         QueueNumberDto number = queueFacade.queuePetitioner(
                 UUID.fromString(request.getQueueConfigurationUUID()),
-                UUID.fromString(request.getLocalizationUUID()));
+                UUID.fromString(request.getFacilityUUID()));
 
         return ResponseEntity.ok(QueueNumberResponse.valueOf(number.getQueueNumber(), number.getQueueNumberPdf()));
     }

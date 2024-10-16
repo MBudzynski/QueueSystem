@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import locationReducer from "./config/LocationUUID"
+import facilityReducer from "./config/FacilityUUID"
 import queueConfigurationPlaceholderReducer from "./config/QueueConfigurationPlaceholder";
 
 export const store = configureStore({
   reducer: {
-    location:locationReducer,
+    facility:facilityReducer,
     queueConfigurationPlaceholder:queueConfigurationPlaceholderReducer,
   },
 });

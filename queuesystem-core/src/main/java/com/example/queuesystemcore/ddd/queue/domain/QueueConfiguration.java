@@ -9,7 +9,7 @@ public class QueueConfiguration {
     private Long queueConfigurationId;
     private String queueConfigurationUUID;
     private String configurationDescription;
-    private Long localizationId;
+    private Long facilityId;
     private Integer currentNumber;
     private Integer numberFrom;
     private Integer numberTo;

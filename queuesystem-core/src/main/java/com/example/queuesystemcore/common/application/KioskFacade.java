@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface KioskFacade {
 
-    KioskConfiguration findKioskButtons(UUID kioskUUID, UUID localizationUUID);
+    KioskConfiguration findKioskButtons(UUID kioskUUID, UUID facilityUUID);
 }

@@ -15,9 +15,9 @@ class KioskAdapter implements KioskRepository {
     private final KioskJpaRepository repository;
 
     @Override
-    public Optional<Kiosk> findKioskData(UUID kioskUUID, Long localizationId) {
+    public Optional<Kiosk> findKioskData(UUID kioskUUID, Long facilityId) {
         return repository
-                .findKioskByUuidAndLocalization(kioskUUID.toString(), localizationId)
+                .findKioskByUuidAndFacility(kioskUUID.toString(), facilityId)
                 .map(KioskEntity::translate);
     }
 }

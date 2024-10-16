@@ -19,7 +19,7 @@ class QueueConfigurationEntity {
     @Column(name = "queue_configuration_uuid")
     private String queueConfigurationUUID;
     private String configurationDescription;
-    private Long localizationId;
+    private Long facilityId;
     private Integer currentNumber;
     private Integer numberFrom;
     private Integer numberTo;
@@ -30,7 +30,7 @@ class QueueConfigurationEntity {
                 queueConfigurationId,
                 queueConfigurationUUID,
                 configurationDescription,
-                localizationId,
+                facilityId,
                 currentNumber,
                 numberFrom,
                 numberTo,
@@ -42,7 +42,7 @@ class QueueConfigurationEntity {
                 .queueConfigurationId(data.getQueueConfigurationId())
                 .queueConfigurationUUID(data.getQueueConfigurationUUID())
                 .configurationDescription(data.getConfigurationDescription())
-                .localizationId(data.getLocalizationId())
+                .facilityId(data.getFacilityId())
                 .currentNumber(data.getCurrentNumber())
                 .numberFrom(data.getNumberFrom())
                 .numberTo(data.getNumberTo())

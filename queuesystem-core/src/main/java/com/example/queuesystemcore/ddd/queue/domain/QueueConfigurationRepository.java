@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface QueueConfigurationRepository {
 
-    Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long localizationId);
+    Optional<QueueConfiguration> findQueueConfigurationByUuid(UUID uuid, Long facilityId);
 
     void updateCurrentNumberInQueueConfigurationId(Long queueConfigurationId, Integer currentNumber);
 

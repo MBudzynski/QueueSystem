@@ -1,8 +1,8 @@
 package com.example.queuesystemcore.ddd.kiosk.application;
 
 import com.example.queuesystemcore.common.application.KioskFacade;
-import com.example.queuesystemcore.common.application.LocalizationFacade;
-import com.example.queuesystemcore.common.domain.LocalizationDto;
+import com.example.queuesystemcore.common.application.FacilityFacade;
+import com.example.queuesystemcore.common.domain.FacilityDto;
 import com.example.queuesystemcore.common.util.FileManagement;
 import com.example.queuesystemcore.ddd.kiosk.domain.Kiosk;
 import com.example.queuesystemcore.ddd.kiosk.ui.rest.response.KioskConfiguration;
@@ -18,31 +18,31 @@ import java.util.UUID;
 @RequiredArgsConstructor
 class KioskService implements KioskFacade {
 
-    private final LocalizationFacade localizationFacade;
+    private final FacilityFacade facilityFacade;
     private final KioskProvider kioskProvider;
     private final FileManagement fileManager;
 
-    public KioskConfiguration findKioskButtons(UUID kioskUUID, UUID localizationUUID) {
+    public KioskConfiguration findKioskButtons(UUID kioskUUID, UUID facilityUUID) {
 
-        LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        Kiosk kiosk = kioskProvider.findKioskData(kioskUUID, localizationDto.getLocationId());
+        FacilityDto facilityDto = facilityFacade.findFacilityIdByUUID(facilityUUID);
+        Kiosk kiosk = kioskProvider.findKioskData(kioskUUID, facilityDto.getFacilityId());
         String institutionLogo;
 
         try {
-            institutionLogo = fileManager.loadFile(localizationDto.getPathToLogoFile());
+            institutionLogo = fileManager.loadFile(facilityDto.getPathToLogoFile());
         } catch (FileNotFoundException e) {
-            log.error("Error load file: " + localizationDto.getPathToLogoFile(), e);
+            log.error("Error load file: " + facilityDto.getPathToLogoFile(), e);
             institutionLogo = "";
         }
 
         return KioskConfiguration
                 .builder()
-                .institutionName(localizationDto.getInstitutionName())
-                .city(localizationDto.getCity())
-                .street(localizationDto.getStreet())
-                .houseNumber(localizationDto.getHouseNumber())
-                .postCode(localizationDto.getPostCode())
-                .postOffice(localizationDto.getPostOffice())
+                .institutionName(facilityDto.getInstitutionName())
+                .city(facilityDto.getCity())
+                .street(facilityDto.getStreet())
+                .houseNumber(facilityDto.getHouseNumber())
+                .postCode(facilityDto.getPostCode())
+                .postOffice(facilityDto.getPostOffice())
                 .institutionLogoFile(institutionLogo)
                 .backgroundColor(kiosk.getBackgroundColor())
                 .kioskButtons(kiosk.getKioskButtons())

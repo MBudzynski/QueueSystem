@@ -11,7 +11,7 @@ public class Kiosk {
 
     private Long kioskId;
     private String kioskUUID;
-    private Long localizationId;
+    private Long facilityId;
     private String kioskName;
     private String kioskDescription;
     private String backgroundColor;

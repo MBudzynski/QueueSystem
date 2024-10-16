@@ -6,9 +6,9 @@ import {preparePdf} from "../service/PdfService";
 
 export const InformationPage = () => {
     const [number, setNumber] = useState<string>('');
-    const location = useLocation();
+    const facility = useLocation();
     const navigate = useNavigate();
-    let queueNumber = location.state.queueNumber as QueueNumber;
+    let queueNumber = facility.state.queueNumber as QueueNumber;
     const queueNumberPDF = useRef<HTMLIFrameElement | null>(null); ;
 
 
@@ -36,7 +36,7 @@ export const InformationPage = () => {
 
     return(
         <div className="container">
-            <div className="header">Odbierz wydrukowany numerek i poczekaj na jego wywołanie</div>
+            <div className="header">Pick up the printed number and wait for it to be called</div>
             <div className="number">{number}</div>
 
             <iframe ref={queueNumberPDF} style={{display: 'none'}}/>

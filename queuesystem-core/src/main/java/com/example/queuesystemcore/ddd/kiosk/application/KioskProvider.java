@@ -16,8 +16,8 @@ public class KioskProvider {
 
     private final KioskRepository kioskRepository;
 
-    public Kiosk findKioskData(UUID kioskUUID, Long localizationId){
-        return kioskRepository.findKioskData(kioskUUID, localizationId)
+    public Kiosk findKioskData(UUID kioskUUID, Long facilityId){
+        return kioskRepository.findKioskData(kioskUUID, facilityId)
                 .orElseThrow(() -> new KioskNoExistException("KioskEntity data no exist"));
     }
 }

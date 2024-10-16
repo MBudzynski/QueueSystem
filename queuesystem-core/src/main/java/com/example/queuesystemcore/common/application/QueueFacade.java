@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface QueueFacade {
 
-    QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID);
+    QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID facilityUUID);
 }

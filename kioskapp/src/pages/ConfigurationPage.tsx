@@ -2,19 +2,19 @@ import React, {useState} from 'react';
 import './css/ConfigurationPage.css';
 import {fetchKioskConfiguration} from '../service/KioskConfigurationService';
 import {useNavigate} from 'react-router-dom';
-import {set} from '../config/LocationUUID';
+import {set} from '../config/FacilityUUID';
 import {setKioskConfiguration} from '../config/QueueConfigurationPlaceholder';
 import {useDispatch} from "react-redux";
 
 export const ConfigurationPage = () => {
-    const [locationUUID, setLocationUUID] = useState<string>('');
+    const [facilityUUID, setFacilityUUID] = useState<string>('');
     const [ekioskConfigUUID, setEkioskConfigUUID] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleLocationUUIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLocationUUID(e.target.value)
+    const handleFacilityUUIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFacilityUUID(e.target.value)
     }
 
     const handleEkioskConfigUUID = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,14 +27,14 @@ export const ConfigurationPage = () => {
         let kioskConfiguration = null
 
         try {
-            let configuration = await fetchKioskConfiguration(locationUUID, ekioskConfigUUID);
+            let configuration = await fetchKioskConfiguration(facilityUUID, ekioskConfigUUID);
             kioskConfiguration = configuration.data;
         } catch (e) {
             setError("Fetch configuration error");
             return;
         }
 
-        dispatch(set(locationUUID));
+        dispatch(set(facilityUUID));
         dispatch(setKioskConfiguration(kioskConfiguration));
         navigate('/mainEkioskPage');
     }
@@ -53,13 +53,13 @@ export const ConfigurationPage = () => {
             ) : null}
             <div className="form-container">
                 <div className="form-field">
-                    <label className="label" htmlFor="locationUUID">Location UUID:</label>
+                    <label className="label" htmlFor="facilityUUID">Facility UUID:</label>
                     <input
                         className="input"
-                        id="locationUUID"
+                        id="facilityUUID"
                         type="text"
-                        value={locationUUID}
-                        onChange={handleLocationUUIDChange}
+                        value={facilityUUID}
+                        onChange={handleFacilityUUIDChange}
                     />
                 </div>
                 <div className="form-field">

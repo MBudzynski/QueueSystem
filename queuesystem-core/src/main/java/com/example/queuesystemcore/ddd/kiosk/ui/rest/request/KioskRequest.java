@@ -11,7 +11,7 @@ public class KioskRequest {
 
     @NotNull
     @NotBlank
-    private String localizationUUID;
+    private String facilityUUID;
 
     @NotNull
     @NotBlank

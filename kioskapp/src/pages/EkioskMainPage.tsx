@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {KioskButton, KioskConfiguration} from "../dto/KioskConfiguration";
+import {useNavigate} from 'react-router-dom';
+import {KioskButton} from "../dto/KioskConfiguration";
 import {useSelector} from "react-redux";
 import './css/EkioskMainPage.css';
-import {getLocationUUID} from "../config/LocationUUID";
+import {getFacilityUUID} from "../config/FacilityUUID";
 import {queuePetitioner} from '../service/KioskConfigurationService';
 import {getKioskConfiguration} from "../config/QueueConfigurationPlaceholder";
 
@@ -16,7 +16,7 @@ export const EkioskMainPage = () => {
     const [leftButtons, setLeftButtons] = useState<KioskButton[]>([]);
     const [rightButtons, setRightButtons] = useState<KioskButton[]>([]);
     let kioskConfiguration = useSelector(getKioskConfiguration);
-    const locationUUID = useSelector(getLocationUUID);
+    const facilityUUID = useSelector(getFacilityUUID);
 
     useEffect(() => {
         const left: KioskButton[] = [];
@@ -41,8 +41,8 @@ export const EkioskMainPage = () => {
 
     }, [kioskConfiguration]);
 
-    const handleButtonClick = async (locationUUID: string, queueConfigurationUUID: string) => {
-        let response = await queuePetitioner(locationUUID, queueConfigurationUUID);
+    const handleButtonClick = async (facilityUUID: string, queueConfigurationUUID: string) => {
+        let response = await queuePetitioner(facilityUUID, queueConfigurationUUID);
         let queueNumber = response.data;
 
         navigate('/informationPage', {state: {queueNumber}});
@@ -61,7 +61,7 @@ export const EkioskMainPage = () => {
                 <div className="side-buttons left">
                     {leftButtons.map((kioskButton, index) => (
                         <button className="side-button"
-                                onClick={() => handleButtonClick(locationUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
+                                onClick={() => handleButtonClick(facilityUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
                     ))}
                 </div>
                 <div className="screen">
@@ -73,7 +73,7 @@ export const EkioskMainPage = () => {
                 <div className="side-buttons right">
                     {rightButtons.map((kioskButton, index) => (
                         <button className="side-button"
-                                onClick={() => handleButtonClick(locationUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
+                                onClick={() => handleButtonClick(facilityUUID, kioskButton.queueConfigurationUUID)}>{kioskButton.buttonText}</button>
                     ))}
                 </div>
             </div>

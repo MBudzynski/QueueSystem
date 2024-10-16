@@ -22,7 +22,7 @@ class QueueEntity {
     private String sign;
     private Integer num;
     private String fullNumber;
-    private Long localizationId;
+    private Long facilityId;
     private Long queueConfigurationId;
     private LocalDate creationDate;
     private LocalTime creationTime;
@@ -34,7 +34,7 @@ class QueueEntity {
                 .sign(data.getSign())
                 .num(data.getNum())
                 .fullNumber(data.getFullNumber())
-                .localizationId(data.getFacilityId())
+                .facilityId(data.getFacilityId())
                 .queueConfigurationId(data.getQueueConfigurationId())
                 .creationDate(data.getCreationDate())
                 .creationTime(data.getCreationTime())
