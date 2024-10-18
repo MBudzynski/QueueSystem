@@ -45,4 +45,13 @@ class QueueConfigurationAdapter implements QueueConfigurationRepository {
                 .map(QueueConfigurationEntity::mutateTo)
                 .toList());
     }
+
+    @Override
+    public List<QueueConfiguration> findQueueConfigurationByFacilityId(Long facilityId) {
+        return repository
+                .findByFacilityId(facilityId)
+                .stream()
+                .map(QueueConfigurationEntity::translate)
+                .toList();
+    }
 }

@@ -20,7 +20,18 @@ spring:
     password: Facility123
     virtual-host: queue-system
 
+http:
+  client:
+    queue-system-core:
+      base-url: http://localhost:8085
+
 custom:
   configuration:
     queue-name: test123
     facilityId: 1
+    facilityUUID: 27f7a5cb-9002-4af5-a0a7-f169d20eafd7
+  schedule:
+    synchronize-queue-configuration:
+      cron: 0 0/30 6-20 * * *
+      enable: true
+

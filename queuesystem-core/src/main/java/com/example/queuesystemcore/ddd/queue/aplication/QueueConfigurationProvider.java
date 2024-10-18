@@ -6,6 +6,7 @@ import com.example.queuesystemcore.ddd.queue.exceprion.QueueConfigurationNoExist
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,5 +23,9 @@ class QueueConfigurationProvider {
 
     public void updateCurrentNumber(Long queueConfigurationId, Integer currentNumber) {
         queueConfigurationRepository.updateCurrentNumberInQueueConfigurationId(queueConfigurationId, currentNumber);
+    }
+
+    public List<QueueConfiguration> findQueueConfigurationByFacilityUUID(Long facilityId) {
+        return queueConfigurationRepository.findQueueConfigurationByFacilityId(facilityId);
     }
 }

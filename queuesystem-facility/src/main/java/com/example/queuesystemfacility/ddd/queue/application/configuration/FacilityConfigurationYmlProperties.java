@@ -3,6 +3,8 @@ package com.example.queuesystemfacility.ddd.queue.application.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 class FacilityConfigurationYmlProperties implements FacilityConfigurationProvider {
 
@@ -12,6 +14,9 @@ class FacilityConfigurationYmlProperties implements FacilityConfigurationProvide
     @Value("${custom.configuration.facilityId}")
     private Long facilityId;
 
+    @Value("${custom.configuration.facilityUUID}")
+    private UUID facilityUUID;
+
     @Override
     public String getQueueName() {
         return queueName;
@@ -20,5 +25,10 @@ class FacilityConfigurationYmlProperties implements FacilityConfigurationProvide
     @Override
     public Long facilityId() {
         return facilityId;
+    }
+
+    @Override
+    public UUID facilityUUID() {
+        return facilityUUID;
     }
 }

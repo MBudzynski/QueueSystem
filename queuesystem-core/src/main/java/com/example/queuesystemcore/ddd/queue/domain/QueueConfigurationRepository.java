@@ -13,4 +13,6 @@ public interface QueueConfigurationRepository {
     List<QueueConfiguration> getAllQueueConfiguration();
 
     void save(List<QueueConfiguration> queueConfigurations);
+
+    List<QueueConfiguration> findQueueConfigurationByFacilityId(Long facilityId);
 }

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfigurationEntity, Long> {
 
@@ -14,4 +16,6 @@ interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfigurati
     @Modifying
     @Query(value = "UPDATE queue_configuration SET current_number = :currentNumber WHERE queue_configuration_id = :queryConfigurationId",nativeQuery = true)
     void updateCurrentNumberById(Long queryConfigurationId, Integer currentNumber);
+
+    List<QueueConfigurationEntity> findByFacilityId(Long facilityId);
 }

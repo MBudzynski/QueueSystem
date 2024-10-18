@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-@ConditionalOnProperty(value = "${custom.schedule.queue-configuration.enable}")
+@ConditionalOnProperty(name = "custom.schedule.queue-configuration.enable")
 class QueueCounterResetScheduler {
 
     private final QueueConfigurationRepository queueConfigurationRepository;

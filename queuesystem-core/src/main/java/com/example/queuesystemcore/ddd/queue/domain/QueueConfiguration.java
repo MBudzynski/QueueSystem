@@ -1,7 +1,10 @@
 package com.example.queuesystemcore.ddd.queue.domain;
 
+import com.example.queuesystemcore.common.domain.QueueConfigurationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +30,15 @@ public class QueueConfiguration {
 
     public void restartCurrentNumber() {
         this.currentNumber = this.numberFrom - 1;
+    }
+
+    public QueueConfigurationDto toDto() {
+        return QueueConfigurationDto.builder()
+                .queueConfigurationUUID(UUID.fromString(this.queueConfigurationUUID))
+                .configurationDescription(this.configurationDescription)
+                .numberRange(this.numberFrom.toString() + " - " + this.numberTo.toString())
+                .sign(this.sign)
+                .build();
     }
 
 }
