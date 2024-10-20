@@ -34,4 +34,6 @@ custom:
     synchronize-queue-configuration:
       cron: 0 0/30 6-20 * * *
       enable: true
+  queue:
+    delay-time-minutes: 5
 
