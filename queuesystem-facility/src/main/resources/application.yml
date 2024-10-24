@@ -3,14 +3,14 @@ server:
 
 spring.jpa:
   database: POSTGRESQL
-  hibernate.ddl-auto: validate
+  hibernate.ddl-auto: create
   show-sql: true
 
 spring.datasource:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://localhost:5432/queue-system-example-facility
-  username: -----
-  password: -----
+  username: example-facility
+  password: Exm123
 
 spring:
   rabbitmq:

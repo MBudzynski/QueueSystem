@@ -5,7 +5,8 @@ import com.example.queuesystemfacility.ddd.queue.domain.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ class QueueAdapter implements QueueRepository {
     }
 
     @Override
-    public void delayQueueNumber(UUID queueUUID, LocalDateTime delayTime) {
+    public void delayQueueNumber(UUID queueUUID, LocalTime delayTime) {
         Optional<QueueEntity> possibleQueueData = queueJpaRepository.findByQueueUuid(queueUUID);
         possibleQueueData.ifPresentOrElse(queueEntity -> {
                     queueEntity.delayQueueNumber(delayTime);
@@ -36,5 +37,22 @@ class QueueAdapter implements QueueRepository {
                     throw new IllegalArgumentException("Queue not found");
                 }
         );
+    }
+
+    @Override
+    public Queue findNextNumber(Long userId) {
+        return queueJpaRepository
+                .findNextNumber(userId)
+                .map(QueueEntity::translateTo)
+                .orElse(null);
+    }
+
+    @Override
+    public List<Queue> showAllNumbers(Long userId) {
+        return queueJpaRepository
+                .showAllNumbers(userId)
+                .stream()
+                .map(QueueEntity::translateTo)
+                .toList();
     }
 }

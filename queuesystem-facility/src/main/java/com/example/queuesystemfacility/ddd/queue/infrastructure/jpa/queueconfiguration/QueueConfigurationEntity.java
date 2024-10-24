@@ -1,16 +1,16 @@
 package com.example.queuesystemfacility.ddd.queue.infrastructure.jpa.queueconfiguration;
 
 import com.example.queuesystemfacility.ddd.queue.domain.QueueConfiguration;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "queue_configuration")
 class QueueConfigurationEntity {
 
     @Id
@@ -20,6 +20,9 @@ class QueueConfigurationEntity {
     private String configurationDescription;
     private String numberRange;
     private String sign;
+
+    @OneToMany(mappedBy = "queueConfiguration", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ObservedQueueEntity> observedQueues = new HashSet<>();
 
     public QueueConfiguration translateTo() {
         return QueueConfiguration

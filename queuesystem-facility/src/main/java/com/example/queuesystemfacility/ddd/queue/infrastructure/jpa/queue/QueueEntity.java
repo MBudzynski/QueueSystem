@@ -31,7 +31,7 @@ class QueueEntity {
     private LocalTime creationTime;
     private Boolean bring;
     private LocalDateTime bringTime;
-    private LocalDateTime delayTime;
+    private LocalTime delayTime;
 
     static QueueEntity mutateTo(Queue data) {
         return QueueEntity
@@ -46,12 +46,31 @@ class QueueEntity {
                 .creationDate(data.getCreationDate())
                 .creationTime(data.getCreationTime())
                 .bring(data.getBring())
-                .bringTime(data.getDelayTime())
+                .bringTime(data.getBringTime())
                 .delayTime(data.getDelayTime())
                 .build();
     }
 
-    public void delayQueueNumber(LocalDateTime delayTime) {
+    public void delayQueueNumber(LocalTime delayTime) {
         this.delayTime = delayTime;
     }
+
+    public Queue translateTo() {
+        return Queue
+                .builder()
+                .queueId(this.queueId)
+                .queueUUID(this.queueUuid)
+                .sign(this.sign)
+                .num(this.num)
+                .fullNumber(this.fullNumber)
+                .facilityId(this.facilityId)
+                .queueConfigurationId(this.queueConfigurationId)
+                .creationDate(this.creationDate)
+                .creationTime(this.creationTime)
+                .bring(this.bring)
+                .bringTime(this.bringTime)
+                .delayTime(this.delayTime)
+                .build();
+    }
+
 }

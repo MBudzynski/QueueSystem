@@ -8,9 +8,9 @@ spring.jpa:
 
 spring.datasource:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/queue-system
-  username: ------
-  password: ------
+  url: jdbc:postgresql://localhost:5432/queue-system-core
+  username: postgres
+  password: MiBu92
 
 spring:
   rabbitmq:

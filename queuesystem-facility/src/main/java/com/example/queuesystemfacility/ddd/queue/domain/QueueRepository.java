@@ -1,6 +1,7 @@
 package com.example.queuesystemfacility.ddd.queue.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface QueueRepository {
@@ -9,5 +10,9 @@ public interface QueueRepository {
 
     void deleteQueueByUUID(UUID queueUUID);
 
-    void delayQueueNumber(UUID queueUUID, LocalDateTime now);
+    void delayQueueNumber(UUID queueUUID, LocalTime now);
+
+    Queue findNextNumber(Long userId);
+
+    List<Queue> showAllNumbers(Long userId);
 }

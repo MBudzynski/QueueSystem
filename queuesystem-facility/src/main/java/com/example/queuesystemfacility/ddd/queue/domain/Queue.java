@@ -1,5 +1,6 @@
 package com.example.queuesystemfacility.ddd.queue.domain;
 
+import com.example.queuesystemfacility.common.domain.QueueNumberDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,5 +24,17 @@ public class Queue {
     private LocalTime creationTime;
     private Boolean bring;
     private LocalDateTime bringTime;
-    private LocalDateTime delayTime;
+    private LocalTime delayTime;
+
+    public QueueNumberDto mutateTo(){
+        return QueueNumberDto
+                .builder()
+                .fullNumber(this.fullNumber)
+                .queueUUID(this.queueUUID)
+                .creationDate(this.creationDate)
+                .creationTime(this.creationTime)
+                .build();
+    }
+
+
 }
