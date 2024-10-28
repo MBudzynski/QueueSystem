@@ -16,5 +16,5 @@ public class QueueRequest {
     private String queueConfigurationUUID;
     @NotNull
     @NotBlank
-    private String localizationUUID;
+    private String facilityUUID;
 }
