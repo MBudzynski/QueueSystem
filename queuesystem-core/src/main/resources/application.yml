@@ -1,3 +1,6 @@
+server:
+  port: 8085
+
 spring.jpa:
   database: POSTGRESQL
   hibernate.ddl-auto: validate
@@ -5,9 +8,20 @@ spring.jpa:
 
 spring.datasource:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/queue-system
-  username: -------
-  password: -----
+  url: jdbc:postgresql://localhost:5432/queue-system-core
+  username: postgres
+  password: MiBu92
 
-server:
-  port: 8085
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: queue-system-cor
+    password: Test123
+    virtual-host: queue-system
+
+custom:
+  schedule:
+    queue-configuration:
+      cron: 0 0 0 * * *
+      enable: true

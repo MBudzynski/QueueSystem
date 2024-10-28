@@ -1,16 +1,21 @@
 package com.example.queuesystemcore.ddd.queue.infrastructure.jpa.queueconfiguration;
 
-import com.example.queuesystemcore.database.entities.QueueConfiguration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfiguration, Long> {
+interface QueueConfigurationJpaRepository extends JpaRepository<QueueConfigurationEntity, Long> {
 
-    @Query(value = "SELECT * FROM queue_configuration WHERE uuid like :uuid AND localization_Id = :localizationId",nativeQuery = true)
-    QueueConfiguration findByUUIDAndLocalizationId(String uuid, Long localizationId);
+    @Query(value = "SELECT * FROM queue_configuration WHERE queue_configuration_uuid like :uuid AND facility_id = :facilityId",nativeQuery = true)
+    QueueConfigurationEntity findByUUIDAndFacilityId(String uuid, Long facilityId);
 
+    @Modifying
     @Query(value = "UPDATE queue_configuration SET current_number = :currentNumber WHERE queue_configuration_id = :queryConfigurationId",nativeQuery = true)
     void updateCurrentNumberById(Long queryConfigurationId, Integer currentNumber);
+
+    List<QueueConfigurationEntity> findByFacilityId(Long facilityId);
 }

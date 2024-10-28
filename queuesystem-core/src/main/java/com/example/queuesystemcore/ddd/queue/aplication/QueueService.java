@@ -1,11 +1,14 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
-import com.example.queuesystemcore.common.application.LocalizationFacade;
+import com.example.queuesystemcore.common.application.FacilityFacade;
 import com.example.queuesystemcore.common.application.QueueFacade;
-import com.example.queuesystemcore.ddd.localization.domain.LocalizationDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueConfigurationDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueDto;
-import com.example.queuesystemcore.ddd.queue.domain.QueueRepository;
+import com.example.queuesystemcore.common.domain.FacilityDto;
+import com.example.queuesystemcore.common.domain.QueueDto;
+import com.example.queuesystemcore.common.domain.QueueNumberDto;
+import com.example.queuesystemcore.ddd.queue.aplication.mapper.QueueNumberMapper;
+import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
+import com.example.queuesystemcore.infrastructure.message_broker.MessageBrokerClient;
+import com.example.queuesystemcore.infrastructure.pdf.PdfFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,39 +19,40 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class QueueService implements QueueFacade {
+class QueueService implements QueueFacade {
 
-    private final QueueRepository queueRepository;
+    private final QueueNumberMapper queueNumberMapper;
+    private final MessageBrokerClient messageBrokerClient;
     private final QueueConfigurationProvider queueConfigurationProvider;
-    private final LocalizationFacade localizationFacade;
+    private final FacilityFacade facilityFacade;
+    private final PdfFacade pdfFacade;
 
     @Transactional
-    public String queuePetitioner(UUID queueConfigurationUUID, UUID localizationUUID) {
+    public QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID facilityUUID) {
 
-        LocalizationDto localizationDto = localizationFacade.findLocalizationIdByUUID(localizationUUID);
-        QueueConfigurationDto queueConfiguration = queueConfigurationProvider
+        FacilityDto facilityDto = facilityFacade.findFacilityIdByUUID(facilityUUID);
+        QueueConfiguration queueConfiguration = queueConfigurationProvider
                 .findQueueConfigurationByUUID(
                         queueConfigurationUUID,
-                        localizationDto.getLocationId()
+                        facilityDto.getFacilityId()
                 );
 
         String sign = queueConfiguration.getSign();
         Integer number = queueConfiguration.getNextNumber();
         String fullNumber = sign + formatNumberToSting(number);
 
-        QueueDto toQueue = QueueDto.builder()
-                .sign(sign)
-                .num(number)
-                .fullNumber(fullNumber)
-                .queueConfigurationId(queueConfiguration.getQueueConfigurationId())
-                .localizationId(localizationDto.getLocationId())
-                .build();
+        QueueDto dto = queueNumberMapper.toDto(sign, number, fullNumber, facilityDto.getFacilityId(), queueConfiguration.getQueueConfigurationId());
 
-        queueRepository.addToQueue(toQueue);
+        messageBrokerClient.sendNewQueueNumber(facilityDto.getQueueName(), dto);
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
-        return fullNumber;
+        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(
+                fullNumber,
+                facilityDto.getPathToLogoFile(),
+                facilityDto.getInstitutionName());
+
+        return queueNumberMapper.toDto(fullNumber, queueNumberPdf);
     }
 
     private String formatNumberToSting(Integer number) {
