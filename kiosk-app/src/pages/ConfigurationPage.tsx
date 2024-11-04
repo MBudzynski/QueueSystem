@@ -29,7 +29,8 @@ export const ConfigurationPage = () => {
         try {
             let configuration = await fetchKioskConfiguration(facilityUUID, ekioskConfigUUID);
             kioskConfiguration = configuration.data;
-        } catch (e) {
+        } catch (error) {
+            console.log(error);
             setError("Fetch configuration error");
             return;
         }

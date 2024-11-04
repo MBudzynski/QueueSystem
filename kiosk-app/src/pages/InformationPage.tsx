@@ -9,8 +9,7 @@ export const InformationPage = () => {
     const facility = useLocation();
     const navigate = useNavigate();
     let queueNumber = facility.state.queueNumber as QueueNumber;
-    const queueNumberPDF = useRef<HTMLIFrameElement | null>(null); ;
-
+    const queueNumberPDF = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
         if(queueNumber){
