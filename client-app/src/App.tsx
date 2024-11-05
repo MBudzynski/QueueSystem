@@ -1,13 +1,17 @@
 import './App.css'
 import LoginPage from "./pages/LoginPage";
 import {QueryClient, QueryClientProvider} from "react-query";
-import {RouterProvider, createBrowserRouter} from "react-router-dom";
+import {RouterProvider, createBrowserRouter, Navigate} from "react-router-dom";
 import {HelmetProvider} from "react-helmet-async";
 import {Provider} from "react-redux";
 import {store} from "./store";
 import QueueMainPage from "./pages/QueueMainPage";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Navigate to="/login"/>
+    },
     {
         path: "/login",
         element: <LoginPage/>,

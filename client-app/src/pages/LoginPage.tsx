@@ -45,7 +45,7 @@ export const LoginPage = () =>{
             ) : null}
             <div className="form-container">
                 <div className="form-field">
-                    <label className="label" htmlFor="User name">Facility UUID:</label>
+                    <label className="label" htmlFor="User name">User name:</label>
                     <input
                         className="input"
                         id="userName"
