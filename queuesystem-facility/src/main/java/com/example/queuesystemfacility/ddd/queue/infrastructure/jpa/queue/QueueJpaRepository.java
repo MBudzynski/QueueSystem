@@ -32,6 +32,12 @@ public interface QueueJpaRepository extends JpaRepository<QueueEntity, Long> {
 
     Optional<QueueEntity> findByQueueUuid(UUID queueUUID);
 
-    @Query(value = "SELECT * FROM Queue q.bring IS FALSE WHERE q ORDER BY COALESCE(q.delay_time, q.creation_time) DESC", nativeQuery = true)
+    @Query(value = """
+            SELECT *
+            FROM Queue q
+            WHERE q.bring IS FALSE
+              AND q.queue_configuration_id IN (SELECT oq.queue_configuration_id FROM observed_queue oq WHERE oq.user_id = :userId)
+            ORDER BY COALESCE(q.delay_time, q.creation_time) DESC
+            """, nativeQuery = true)
     List<QueueEntity> showAllNumbers(Long userId);
 }

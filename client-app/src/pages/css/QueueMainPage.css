@@ -4,15 +4,36 @@
     font-family: Arial, sans-serif;
 }
 
-.queue-list-container {
+.queue-table-container {
     flex: 1;
     padding: 30px;
     border-right: 2px solid #ccc;
     overflow-y: auto;
 }
 
-.queue-list {
-    list-style-type: none;
+.queue-table {
+    margin-top: 3%;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.queue-table th, .queue-table td {
+    border: none;
+    padding: 8px;
+    text-align: center;
+}
+
+.queue-table th {
+    background-color: #f2f2f2; /* Opcjonalne tło nagłówków */
+    font-weight: bold;
+}
+
+.queue-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Kolor tła dla co drugiego wiersza */
+}
+
+.queue-list th {
+    background-color: #f2f2f2;
 }
 
 .queue-list li:nth-child(odd) {

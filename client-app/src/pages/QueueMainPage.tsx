@@ -1,28 +1,39 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import './css/QueueMainPage.css';
+import {getAllNumbersInQueue} from '../service/QueueService';
+import {QueueNumberDto} from '../dto/QueueNumbersResponse'
 
 export const QueueMainPage = () => {
 
-    const [queue, setQueue] = useState<number[]>([101, 102, 103, 104, 105]);
-    const [current, setCurrent] = useState<number | null>(null);
+    const [numbers, setNumbers] = useState<QueueNumberDto[]>([]);
+    const [current, setCurrent] = useState<string | null>(null);
+
+    const fetchNumbers = async () => {
+        let response = null;
+        try {
+            response =  await getAllNumbersInQueue("bf462b96-43d7-4fe9-936c-c25c9e0954b0");
+            console.log(response);
+            setNumbers(response.data.queueNumbers);
+        } catch (error) {
+            console.error('Error during fetch queue numbers', error);
+        }
+    };
+
+    useEffect(()=> {
+        fetchNumbers();
+        const intervalId = setInterval(fetchNumbers, 240000)
+        return () => clearInterval(intervalId);
+    }, []);
+
 
     const handleNext = () => {
-        if (queue.length > 0) {
-            const newQueue = [...queue];
-            setCurrent(newQueue.shift() || null);
-            setQueue(newQueue);
-        }
+        setCurrent("C 123");
     };
 
     const handleEnd = () => {
-        setCurrent(null);
     };
 
     const handlePostpone = () => {
-        if (current !== null) {
-            setQueue([...queue, current]);
-            setCurrent(null);
-        }
     };
 
     document.body.style.display = '';
@@ -30,13 +41,26 @@ export const QueueMainPage = () => {
 
     return (
         <div className="queue-container">
-            <div className="queue-list-container">
+            <div className="queue-table-container">
                 <div className='queue-title'>Queue</div>
-                <ul className="queue-list">
-                    {queue.map((num) => (
-                        <li key={num}>{num}</li>
+                <table className="queue-table">
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {numbers.map((num) => (
+                        <tr key={num.queueUUID}>
+                            <td>{num.fullNumber}</td>
+                            <td>{num.creationDate}</td>
+                            <td>{num.creationTime}</td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             </div>
             <div className="queue-actions">
                 <div className="current-number">
