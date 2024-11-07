@@ -1,9 +1,9 @@
 package com.example.queuesystemfacility.ddd.queue.infrastructure.jpa.queue;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +12,9 @@ import java.util.UUID;
 @Repository
 public interface QueueJpaRepository extends JpaRepository<QueueEntity, Long> {
 
+    @Transactional
     void deleteByQueueUuid(UUID queueUUID);
 
-    @Modifying
     @Query(value = """
             Update Queue qu
             set bring      = true,
@@ -22,9 +22,9 @@ public interface QueueJpaRepository extends JpaRepository<QueueEntity, Long> {
             where queue_id = (SELECT q.queue_id
                               FROM Queue q
                               WHERE q.queue_configuration_id in
-                                    (SELECT oq.queue_configuration_id FROM observed_queue oq WHERE oq.user_Id = 1) 
+                                    (SELECT oq.queue_configuration_id FROM observed_queue oq WHERE oq.user_Id = :userId) 
                                 AND q.bring IS FALSE
-                              ORDER BY COALESCE(q.delay_time, q.creation_time) DESC
+                              ORDER BY COALESCE(q.delay_time, q.creation_time) ASC 
                               LIMIT 1)
             returning *
             """, nativeQuery = true)
@@ -37,7 +37,7 @@ public interface QueueJpaRepository extends JpaRepository<QueueEntity, Long> {
             FROM Queue q
             WHERE q.bring IS FALSE
               AND q.queue_configuration_id IN (SELECT oq.queue_configuration_id FROM observed_queue oq WHERE oq.user_id = :userId)
-            ORDER BY COALESCE(q.delay_time, q.creation_time) DESC
+            ORDER BY COALESCE(q.delay_time, q.creation_time) ASC 
             """, nativeQuery = true)
     List<QueueEntity> showAllNumbers(Long userId);
 }

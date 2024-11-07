@@ -52,6 +52,8 @@ class QueueEntity {
     }
 
     public void delayQueueNumber(LocalTime delayTime) {
+        this.bring = Boolean.FALSE;
+        this.bringTime = null;
         this.delayTime = delayTime;
     }
 

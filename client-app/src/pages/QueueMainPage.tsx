@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import './css/QueueMainPage.css';
-import {getAllNumbersInQueue} from '../service/QueueService';
-import {QueueNumberDto} from '../dto/QueueNumbersResponse'
+import {getAllNumbersInQueue, getNextNumber, postponeQueueNumber, endQueueNumber} from '../service/QueueService';
+import {QueueNumberDto} from '../dto/QueueNumberDto'
 
 export const QueueMainPage = () => {
 
     const [numbers, setNumbers] = useState<QueueNumberDto[]>([]);
-    const [current, setCurrent] = useState<string | null>(null);
+    const [current, setCurrent] = useState<QueueNumberDto | null>();
+    const userUUID = "bf462b96-43d7-4fe9-936c-c25c9e0954b0";
 
     const fetchNumbers = async () => {
         let response = null;
         try {
-            response =  await getAllNumbersInQueue("bf462b96-43d7-4fe9-936c-c25c9e0954b0");
+            response =  await getAllNumbersInQueue(userUUID);
             console.log(response);
             setNumbers(response.data.queueNumbers);
         } catch (error) {
@@ -21,19 +22,32 @@ export const QueueMainPage = () => {
 
     useEffect(()=> {
         fetchNumbers();
-        const intervalId = setInterval(fetchNumbers, 240000)
+        const intervalId = setInterval(fetchNumbers, 120000)
         return () => clearInterval(intervalId);
     }, []);
 
-
-    const handleNext = () => {
-        setCurrent("C 123");
+    const handleNext = async () => {
+        if (current == null) {
+            const response = await getNextNumber(userUUID);
+            setCurrent(response.data.queueNumber);
+            fetchNumbers();
+        }
     };
 
-    const handleEnd = () => {
+    const handleEnd = async () => {
+        if (current && current.queueUUID) {
+            await endQueueNumber(current.queueUUID);
+            setCurrent(null);
+            fetchNumbers();
+        }
     };
 
-    const handlePostpone = () => {
+    const handlePostpone = async () => {
+        if(current && current.queueUUID) {
+            await postponeQueueNumber(current.queueUUID);
+            setCurrent(null);
+            fetchNumbers();
+        }
     };
 
     document.body.style.display = '';
@@ -65,7 +79,7 @@ export const QueueMainPage = () => {
             <div className="queue-actions">
                 <div className="current-number">
                     <div className="queue-title">Current number:</div>
-                    <div className="queue-current-number">{current !== null ? `${current}` : '----'}</div>
+                    <div className="queue-current-number">{current != null ? `${current?.fullNumber}` : '----'}</div>
                 </div>
                 <div className="action-buttons">
                     <button onClick={handleNext}>Next</button>
