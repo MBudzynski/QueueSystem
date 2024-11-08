@@ -9,5 +9,5 @@ public interface ObservedQueueRepository {
 
     void deleteAllUserObservedQueue(Long userId);
 
-    void saveObservedUserQueues(Long userId, List<UUID> queueConfigurationUUIDs);
+    void saveUserQueueObserved(Long userId, List<UUID> queueConfigurationUUIDs);
 }

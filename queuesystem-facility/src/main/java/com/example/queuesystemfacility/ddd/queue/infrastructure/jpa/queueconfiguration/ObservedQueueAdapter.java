@@ -31,7 +31,7 @@ class ObservedQueueAdapter implements ObservedQueueRepository {
     }
 
     @Override
-    public void saveObservedUserQueues(Long userId, List<UUID> queueConfigurationUUIDs) {
+    public void saveUserQueueObserved(Long userId, List<UUID> queueConfigurationUUIDs) {
         observedQueueJpaRepository.saveObservedQueue(userId, queueConfigurationUUIDs);
     }
 }

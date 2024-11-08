@@ -9,6 +9,7 @@
     padding: 30px;
     border-right: 2px solid #ccc;
     overflow-y: auto;
+    position: relative;
 }
 
 .queue-table {
@@ -24,12 +25,12 @@
 }
 
 .queue-table th {
-    background-color: #f2f2f2; /* Opcjonalne tło nagłówków */
+    background-color: #f2f2f2;
     font-weight: bold;
 }
 
 .queue-table tr:nth-child(even) {
-    background-color: #f9f9f9; /* Kolor tła dla co drugiego wiersza */
+    background-color: #f9f9f9;
 }
 
 .queue-list th {
@@ -72,7 +73,7 @@
     text-align: center;
     padding: 20px;
     border-bottom: 2px solid #ccc;
-    max-height: 60%;
+    max-height: 70%;
 }
 
 .action-buttons {
@@ -83,6 +84,15 @@
 }
 
 .action-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.configuration-button {
+    position: absolute;
+    bottom: 20px;
+    left: 45%;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;

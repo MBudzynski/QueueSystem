@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface ObservedQueueFacade {
 
-    List<UUID> getObservedUserQueue(UUID userUUID);
+    List<UUID> getUserQueueObserved(UUID userUUID);
 
-    void saveUserObservedQueue(UUID userUUID, List<UUID> queueConfigurationUUIDs);
+    void saveUserQueueObserved(UUID userUUID, List<UUID> queueConfigurationUUIDs);
 }

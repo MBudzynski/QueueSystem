@@ -6,6 +6,7 @@ import {HelmetProvider} from "react-helmet-async";
 import {Provider} from "react-redux";
 import {store} from "./store";
 import QueueMainPage from "./pages/QueueMainPage";
+import QueueConfigurationPage from "./pages/QueueConfigurationPage";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/queueMainPage",
         element: <QueueMainPage/>,
+    },
+    {
+        path: "/configure",
+        element: <QueueConfigurationPage/>,
     }
 ]);
 

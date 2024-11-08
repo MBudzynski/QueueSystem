@@ -19,12 +19,12 @@ public class ObservedQueueController {
     private final ObservedQueueFacade observedQueueFacade;
 
     @GetMapping
-    public ObservedUserQueueResponse getObservedUserQueue(@PathVariable UUID userUUID) {
-        return ObservedUserQueueResponse.valueOf(observedQueueFacade.getObservedUserQueue(userUUID));
+    public ObservedUserQueueResponse getUserQueueObserved(@RequestParam UUID userUUID) {
+        return ObservedUserQueueResponse.valueOf(observedQueueFacade.getUserQueueObserved(userUUID));
     }
 
     @PostMapping
-    public void saveObservedUserQueue(@RequestBody @Valid SaveObservedQueueRequest request) {
-        observedQueueFacade.saveUserObservedQueue(request.getUserUUID(), request.getQueueConfigurationUUIDs());
+    public void saveUserQueueObserved(@RequestBody @Valid SaveObservedQueueRequest request) {
+        observedQueueFacade.saveUserQueueObserved(request.getUserUUID(), request.getQueueConfigurationUUIDs());
     }
 }

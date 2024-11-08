@@ -17,11 +17,11 @@ export const getNextNumber = (userUUID: string) => {
 
 export const postponeQueueNumber = (queueUUID: string) => {
 
-    const postponeNumberrequest = {
+    const postponeNumberRequest = {
         queueUUID: queueUUID
     }
 
-    return queueSystemFacilityClient.patch('/queue/delay', postponeNumberrequest);
+    return queueSystemFacilityClient.patch('/queue/delay', postponeNumberRequest);
 }
 
 export const endQueueNumber = (queueUUID: string) => {

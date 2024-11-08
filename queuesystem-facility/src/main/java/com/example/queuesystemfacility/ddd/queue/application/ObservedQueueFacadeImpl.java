@@ -20,7 +20,7 @@ class ObservedQueueFacadeImpl implements ObservedQueueFacade {
     private final UserFacade userFacade;
 
     @Override
-    public List<UUID> getObservedUserQueue(UUID userUUID) {
+    public List<UUID> getUserQueueObserved(UUID userUUID) {
         Long userId = findUserId(userUUID);
 
         if(userId == null) {
@@ -35,14 +35,14 @@ class ObservedQueueFacadeImpl implements ObservedQueueFacade {
     }
 
     @Override
-    public void saveUserObservedQueue(UUID userUUID, List<UUID> queueConfigurationUUIDs) {
+    public void saveUserQueueObserved(UUID userUUID, List<UUID> queueConfigurationUUIDs) {
         Long userId = findUserId(userUUID);
 
         if(userId == null) {
             return;
         }
 
-        observedUserQueueService.saveUserObservedQueue(userId, queueConfigurationUUIDs);
+        observedUserQueueService.saveUserQueueObserved(userId, queueConfigurationUUIDs);
     }
 
     private Long findUserId(UUID userUUID) {

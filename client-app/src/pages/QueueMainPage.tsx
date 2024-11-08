@@ -2,17 +2,19 @@ import React, {useState, useEffect} from 'react';
 import './css/QueueMainPage.css';
 import {getAllNumbersInQueue, getNextNumber, postponeQueueNumber, endQueueNumber} from '../service/QueueService';
 import {QueueNumberDto} from '../dto/QueueNumberDto'
+import {useNavigate} from "react-router-dom";
 
 export const QueueMainPage = () => {
 
     const [numbers, setNumbers] = useState<QueueNumberDto[]>([]);
     const [current, setCurrent] = useState<QueueNumberDto | null>();
     const userUUID = "bf462b96-43d7-4fe9-936c-c25c9e0954b0";
+    const navigate = useNavigate();
 
     const fetchNumbers = async () => {
         let response = null;
         try {
-            response =  await getAllNumbersInQueue(userUUID);
+            response = await getAllNumbersInQueue(userUUID);
             console.log(response);
             setNumbers(response.data.queueNumbers);
         } catch (error) {
@@ -20,9 +22,9 @@ export const QueueMainPage = () => {
         }
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchNumbers();
-        const intervalId = setInterval(fetchNumbers, 120000)
+        const intervalId = setInterval(fetchNumbers, 60000)
         return () => clearInterval(intervalId);
     }, []);
 
@@ -42,8 +44,12 @@ export const QueueMainPage = () => {
         }
     };
 
+    const handleQueueUserConfigurations = async () => {
+        navigate('/configure');
+    };
+
     const handlePostpone = async () => {
-        if(current && current.queueUUID) {
+        if (current && current.queueUUID) {
             await postponeQueueNumber(current.queueUUID);
             setCurrent(null);
             fetchNumbers();
@@ -75,11 +81,15 @@ export const QueueMainPage = () => {
                     ))}
                     </tbody>
                 </table>
+                <button className="configuration-button" onClick={handleQueueUserConfigurations}>
+                    Configuration
+                </button>
             </div>
             <div className="queue-actions">
                 <div className="current-number">
-                    <div className="queue-title">Current number:</div>
-                    <div className="queue-current-number">{current != null ? `${current?.fullNumber}` : '----'}</div>
+                <div className="queue-title">Current number:</div>
+                    <div
+                        className="queue-current-number">{current != null ? `${current?.fullNumber}` : '----'}</div>
                 </div>
                 <div className="action-buttons">
                     <button onClick={handleNext}>Next</button>

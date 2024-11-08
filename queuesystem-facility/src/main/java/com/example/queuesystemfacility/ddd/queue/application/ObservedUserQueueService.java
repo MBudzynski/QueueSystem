@@ -20,8 +20,8 @@ class ObservedUserQueueService {
     }
 
     @Transactional
-    public void saveUserObservedQueue(Long userId, List<UUID> queueConfigurationUUIDs) {
+    public void saveUserQueueObserved(Long userId, List<UUID> queueConfigurationUUIDs) {
         observedQueueRepository.deleteAllUserObservedQueue(userId);
-        observedQueueRepository.saveObservedUserQueues(userId, queueConfigurationUUIDs);
+        observedQueueRepository.saveUserQueueObserved(userId, queueConfigurationUUIDs);
     }
 }

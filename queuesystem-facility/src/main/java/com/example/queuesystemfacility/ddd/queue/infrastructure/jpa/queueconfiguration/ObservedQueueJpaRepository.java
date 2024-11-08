@@ -19,6 +19,7 @@ public interface ObservedQueueJpaRepository extends JpaRepository<ObservedQueueE
             SELECT :userId, queue_configuration_id 
             FROM queue_configuration 
             WHERE queue_configurationuuid IN :queueConfigurationUUIDs
+            returning 1
             """, nativeQuery = true)
     void saveObservedQueue(Long userId, List<UUID> queueConfigurationUUIDs);
 }
