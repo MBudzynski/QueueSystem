@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @ConditionalOnProperty(name = "custom.schedule.synchronize-queue-configuration.enable")
-public class QueueConfigurationScheduler {
+class QueueConfigurationScheduler {
 
     private final QueueConfigurationService queueConfigurationService;
 

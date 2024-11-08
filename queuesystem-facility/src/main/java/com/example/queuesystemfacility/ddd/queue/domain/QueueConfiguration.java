@@ -27,6 +27,16 @@ public class QueueConfiguration {
                 .build();
     }
 
+    public QueueConfigurationDto toDto() {
+        return QueueConfigurationDto
+                .builder()
+                .queueConfigurationUUID(this.queueConfigurationUUID)
+                .configurationDescription(this.configurationDescription)
+                .numberRange(this.numberRange)
+                .sign(this.sign)
+                .build();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

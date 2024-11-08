@@ -1,5 +1,6 @@
 package com.example.queuesystemfacility.ddd.queue.infrastructure.jpa.queueconfiguration;
 
+import com.example.queuesystemfacility.ddd.queue.domain.ObservedQueue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "observed_queue")
-public class ObservedQueueEntity {
+class ObservedQueueEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +24,13 @@ public class ObservedQueueEntity {
 
     @NotNull
     private Long userId;
+
+    public ObservedQueue translateTo() {
+        return ObservedQueue.builder()
+                .id(this.id)
+                .userId(this.userId)
+                .queueConfigurationUUID(this.queueConfiguration.getQueueConfigurationUUID())
+                .queueConfigurationId(this.queueConfiguration.getQueueConfigurationId())
+                .build();
+    }
 }
