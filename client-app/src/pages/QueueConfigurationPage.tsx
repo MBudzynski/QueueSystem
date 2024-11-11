@@ -15,14 +15,12 @@ export const QueueConfigurationPage = () => {
         fetchQueueConfigurations();
     }, []);
 
-
     const fetchQueueConfigurations = async () => {
         const queueConfiguration = await fetchAllQueueConfigurations();
         const observed = await fetchUserObservedQueues(userUUID);
         setQueueConfigurations(queueConfiguration.data.configuredQueues.map(queueConfiguration => ({...queueConfiguration,
             selected: observed.data.observedQueues.includes(queueConfiguration.queueConfigurationUUID)})));
     };
-
 
     const handleCheckboxChange = (uuid: string) => {
         setQueueConfigurations(prevObjects =>
@@ -32,7 +30,6 @@ export const QueueConfigurationPage = () => {
         );
     };
 
-
     const handleSave = () => {
         const selectedQueueConfigurationUUIDs = queueConfigurations
             .filter(configuration => configuration.selected)
@@ -41,7 +38,6 @@ export const QueueConfigurationPage = () => {
         saveUserObservedQueues(userUUID, selectedQueueConfigurationUUIDs);
         navigate('/queueMainPage');
     };
-
 
     const handleBack = () => {
         navigate('/queueMainPage');
