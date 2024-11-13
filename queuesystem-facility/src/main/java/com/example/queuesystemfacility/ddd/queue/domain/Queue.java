@@ -31,6 +31,8 @@ public class Queue {
         return QueueNumberDto
                 .builder()
                 .fullNumber(this.fullNumber)
+                .sign(this.sign)
+                .number(this.num)
                 .queueUUID(this.queueUUID)
                 .creationDate(this.creationDate)
                 .creationTime(this.creationTime.truncatedTo(ChronoUnit.SECONDS))

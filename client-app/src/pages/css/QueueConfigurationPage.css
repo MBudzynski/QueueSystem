@@ -7,9 +7,24 @@
     text-align: center;
 }
 
+.workstation {
+    margin-top: 8px;
+    font-weight: bold;
+    color: #222222;
+}
+
+.input {
+    margin: 2%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #222222;
+    border-radius: 4px;
+    width: 95%;
+}
+
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     padding: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;

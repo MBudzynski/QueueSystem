@@ -13,6 +13,8 @@ public class QueueNumberDto {
 
     private UUID queueUUID;
     private String fullNumber;
+    private String sign;
+    private Integer number;
     private LocalDate creationDate;
     private LocalTime creationTime;
 
