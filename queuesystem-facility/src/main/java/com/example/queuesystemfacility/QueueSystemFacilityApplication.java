@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @SpringBootApplication
 @EnableTransactionManagement
-public class QueuesystemFacilityApplication {
+public class QueueSystemFacilityApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QueuesystemFacilityApplication.class, args);
+        SpringApplication.run(QueueSystemFacilityApplication.class, args);
     }
 
 }
