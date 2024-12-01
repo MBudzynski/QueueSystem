@@ -4,7 +4,6 @@ import {getAllNumbersInQueue, getNextNumber, postponeQueueNumber, endQueueNumber
 import {QueueNumberDto} from '../dto/QueueNumberDto'
 import {useNavigate} from "react-router-dom";
 import {openInformationPage} from './InformationWindow'
-import {readText} from "../service/ReadTextService";
 import {getFromLocalStorage} from '../service/LocalStorageService'
 
 export const QueueMainPage = () => {
@@ -41,10 +40,6 @@ export const QueueMainPage = () => {
                 setIsPulsing(false);
             }, 7000);
             if (informationWindow.current) {
-                readText(getFromLocalStorage("read-prefix"));
-                readText(response.data.queueNumber.sign);
-                readText(response.data.queueNumber.number.toString());
-                readText(getFromLocalStorage("read-suffix"));
                 informationWindow.current.postMessage({ type: 'UPDATE_NUMBER', data: response.data.queueNumber.fullNumber }, '*');
             }
             fetchNumbers();
