@@ -9,12 +9,13 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueueNumberToCallDto implements Serializable {
+public class QueueNumberDto implements Serializable {
 
-    private String readPrefix;
+    private String callNumberPrefix;
     private String sign;
     private String number;
     private String fullNumber;
-    private String readSuffix;
+    private String serviceDeskName;
+    private String callServiceDeskName;
 
 }

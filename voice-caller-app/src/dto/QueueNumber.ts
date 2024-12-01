@@ -1,7 +1,8 @@
 export type QueueNumber = {
-    readPrefix: string;
+    callNumberPrefix: string;
     sign: string;
     number: string;
     fullNumber: string;
-    readSuffix: string;
+    serviceDeskName: string;
+    callServiceDeskName: string;
 };
