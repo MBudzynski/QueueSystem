@@ -2,6 +2,7 @@ package com.example.queuesystemfacility.ddd.queue.application;
 
 import com.example.queuesystemfacility.common.application.ObservedQueueFacade;
 import com.example.queuesystemfacility.common.application.UserFacade;
+import com.example.queuesystemfacility.common.domain.UserDto;
 import com.example.queuesystemfacility.ddd.queue.domain.ObservedQueue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +22,14 @@ class ObservedQueueFacadeImpl implements ObservedQueueFacade {
 
     @Override
     public List<UUID> getUserQueueObserved(UUID userUUID) {
-        Long userId = findUserId(userUUID);
+        UserDto user = findUser(userUUID);
 
-        if(userId == null) {
+        if(user == null) {
             return Collections.emptyList();
         }
 
         return observedUserQueueService
-                .getObservedUserQueue(userId)
+                .getObservedUserQueue(user.getUserId())
                 .stream()
                 .map(ObservedQueue::getQueueConfigurationUUID)
                 .toList();
@@ -36,18 +37,18 @@ class ObservedQueueFacadeImpl implements ObservedQueueFacade {
 
     @Override
     public void saveUserQueueObserved(UUID userUUID, List<UUID> queueConfigurationUUIDs) {
-        Long userId = findUserId(userUUID);
+        UserDto user = findUser(userUUID);
 
-        if(userId == null) {
+        if(user == null) {
             return;
         }
 
-        observedUserQueueService.saveUserQueueObserved(userId, queueConfigurationUUIDs);
+        observedUserQueueService.saveUserQueueObserved(user.getUserId(), queueConfigurationUUIDs);
     }
 
-    private Long findUserId(UUID userUUID) {
+    private UserDto findUser(UUID userUUID) {
         try {
-            return userFacade.findUserIdByUUID(userUUID);
+            return userFacade.findUserByUUID(userUUID);
         } catch (Exception e) {
             log.error("Error during search userUUID: " + userUUID.toString(), e.getMessage());
             return null;

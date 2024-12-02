@@ -4,7 +4,9 @@ import {fetchAllQueueConfigurations} from '../service/QueueConfigurationService'
 import {QueueConfigurationWithSelection} from '../dto/QueueConfigurationDto';
 import {fetchUserObservedQueues, saveUserObservedQueues} from '../service/ObservedQueueService'
 import {useNavigate} from "react-router-dom";
-import {saveAtLocalStorage, getFromLocalStorage} from '../service/LocalStorageService'
+import {getUserData, setUserData} from "../config/UserDataPlaceholder";
+import {useSelector, useDispatch} from "react-redux";
+import {updateUserConfiguration} from '../service/UserService'
 
 export const QueueConfigurationPage = () => {
 
@@ -12,29 +14,21 @@ export const QueueConfigurationPage = () => {
     const [displayedText, setDisplayedText] = useState<string>("");
     const [readPrefix, setReadPrefix] = useState<string>("");
     const [readSuffix, setReadSuffix] = useState<string>("");
-    const userUUID = "bf462b96-43d7-4fe9-936c-c25c9e0954b0";
     const navigate = useNavigate();
+    const userData = useSelector(getUserData);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetchQueueConfigurations();
-        const text = getFromLocalStorage("displayed-text");
-        if (text) {
-            setDisplayedText(text);
-        }
-        const prefix = getFromLocalStorage("read-prefix");
-        if (prefix) {
-            setReadPrefix(prefix);
-        }
-        const suffix = getFromLocalStorage("read-suffix");
-        if (suffix) {
-            setReadSuffix(suffix);
-        }
+        setDisplayedText(userData.displayServiceDeskName);
+        setReadPrefix(userData.pronouncedNumberPrefix);
+        setReadSuffix(userData.pronouncedServiceDeskName);
 
     }, []);
 
     const fetchQueueConfigurations = async () => {
         const queueConfiguration = await fetchAllQueueConfigurations();
-        const observed = await fetchUserObservedQueues(userUUID);
+        const observed = await fetchUserObservedQueues(userData.userUUID);
         setQueueConfigurations(queueConfiguration.data.configuredQueues.map(queueConfiguration => ({
             ...queueConfiguration,
             selected: observed.data.observedQueues.includes(queueConfiguration.queueConfigurationUUID)
@@ -49,16 +43,14 @@ export const QueueConfigurationPage = () => {
         );
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const selectedQueueConfigurationUUIDs = queueConfigurations
             .filter(configuration => configuration.selected)
             .map(configuration => configuration.queueConfigurationUUID);
 
-        saveAtLocalStorage("displayed-text", displayedText);
-        saveAtLocalStorage("read-prefix", readPrefix);
-        saveAtLocalStorage("read-suffix", readSuffix);
-
-        saveUserObservedQueues(userUUID, selectedQueueConfigurationUUIDs);
+        const response= await updateUserConfiguration(userData.userUUID, displayedText, readPrefix, readSuffix);
+        dispatch(setUserData(response.data));
+        saveUserObservedQueues(userData.userUUID, selectedQueueConfigurationUUIDs);
         navigate('/queueMainPage');
     };
 

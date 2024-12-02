@@ -2,9 +2,12 @@ package com.example.queuesystemfacility.ddd.queue.application;
 
 import com.example.queuesystemfacility.common.application.QueueFacade;
 import com.example.queuesystemfacility.common.application.UserFacade;
-import com.example.queuesystemfacility.common.domain.QueueNumberDto;
+import com.example.queuesystemfacility.common.domain.UserDto;
 import com.example.queuesystemfacility.ddd.queue.domain.Queue;
 import java.util.Collections;
+
+import com.example.queuesystemfacility.ddd.queue.domain.QueueNumberDto;
+import com.example.queuesystemfacility.ddd.queue.infrastructure.web_socket.WebSocketClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,7 @@ class QueueFacadeImpl implements QueueFacade {
 
     private final QueueService queueService;
     private final UserFacade userFacade;
+    private final WebSocketClientService webSocketClientService;
 
     public void deleteQueueNumber(UUID queueUUID) {
         queueService.deleteQueueNumber(queueUUID);
@@ -31,36 +35,45 @@ class QueueFacadeImpl implements QueueFacade {
     }
 
     @Override
-    public QueueNumberDto bringNextNumber(UUID userUUID) {
+    public com.example.queuesystemfacility.common.domain.QueueNumberDto bringNextNumber(UUID userUUID) {
 
-        Long userId = findUserId(userUUID);
+        UserDto user = findUserId(userUUID);
 
-        if(userId == null) {
+        if(user == null) {
             return null;
         }
 
-        return Optional.ofNullable(queueService.bringNextNumber(userId))
-                .map(Queue::mutateTo)
+        return Optional.ofNullable(queueService.bringNextNumber(user.getUserId()))
+                .map(queue -> {
+                    webSocketClientService.sendMessageToApp(user.getDisplayDeviceIp(), new QueueNumberDto(
+                            user.getPronouncedNumberPrefix(),
+                            queue.getSign(),
+                            queue.getNum().toString(),
+                            queue.getFullNumber(),
+                            user.getDisplayServiceDeskName(),
+                            user.getPronouncedServiceDeskName()));
+                    return queue.mutateTo();
+                })
                 .orElse(null);
     }
 
     @Override
-    public List<QueueNumberDto> showAllNumbers(UUID userUUID) {
-        Long userId = findUserId(userUUID);
+    public List<com.example.queuesystemfacility.common.domain.QueueNumberDto> showAllNumbers(UUID userUUID) {
+        UserDto user = findUserId(userUUID);
 
-        if(userId == null) {
+        if(user == null) {
             return Collections.emptyList();
         }
 
-        return queueService.showAllNumbers(userId)
+        return queueService.showAllNumbers(user.getUserId())
                 .stream()
                 .map(Queue::mutateTo)
                 .toList();
     }
 
-    private Long findUserId(UUID userUUID) {
+    private UserDto findUserId(UUID userUUID) {
         try {
-            return userFacade.findUserIdByUUID(userUUID);
+            return userFacade.findUserByUUID(userUUID);
         } catch (Exception e) {
             log.error("Error during search userUUID: " + userUUID.toString(), e.getMessage());
             return null;

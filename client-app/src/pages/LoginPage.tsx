@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import './css/LoginPage.css';
 import {useNavigate} from 'react-router-dom';
+import {loginUser} from '../service/UserService'
+import {useDispatch} from "react-redux";
+import {setUserData} from "../config/UserDataPlaceholder";
 
 export const LoginPage = () =>{
 
@@ -8,18 +11,23 @@ export const LoginPage = () =>{
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLoginUser = async () => {
         setError(null);
 
+        let data = null;
         try {
-            //todo add user login
+            const response =  await loginUser(userName, password);
+            data = response.data;
         } catch (error) {
             console.log(error);
             setError("Worng username or password");
             return;
         }
 
+        console.log(data);
+        dispatch(setUserData(data));
         navigate('/queueMainPage');
     }
 

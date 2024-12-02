@@ -1,6 +1,8 @@
 package com.example.queuesystemfacility.ddd.user.application;
 
 import com.example.queuesystemfacility.common.application.UserFacade;
+import com.example.queuesystemfacility.common.domain.UserDto;
+import com.example.queuesystemfacility.ddd.user.exception.UserDataNotFoundException;
 import com.example.queuesystemfacility.ddd.user.exception.UserException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,20 @@ public class UserFacadeImpl implements UserFacade {
 
     private final UserService userService;
 
-    public Long findUserIdByUUID(UUID userUUID) throws UserException {
+    public UserDto findUserByUUID(UUID userUUID) throws UserDataNotFoundException {
         return userService
                 .findUserByUUID(userUUID)
-                .getUserId();
+                .translate();
+    }
+
+    @Override
+    public UserDto loginUser(String userLogin, String password) throws UserException {
+        return userService.findUserDataByLogin(userLogin, password)
+                .translate();
+    }
+
+    @Override
+    public UserDto updateUserConfiguration(UUID userUUID, String displayServiceDeskName, String pronouncedServiceDeskName, String pronouncedNumberPrefix) {
+        return userService.updateUserConfiguration(userUUID, displayServiceDeskName, pronouncedServiceDeskName, pronouncedNumberPrefix).translate();
     }
 }

@@ -2,23 +2,24 @@ import React, {useState, useEffect, useRef} from 'react';
 import './css/QueueMainPage.css';
 import {getAllNumbersInQueue, getNextNumber, postponeQueueNumber, endQueueNumber} from '../service/QueueService';
 import {QueueNumberDto} from '../dto/QueueNumberDto'
+import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {openInformationPage} from './InformationWindow'
-import {getFromLocalStorage} from '../service/LocalStorageService'
+import {getUserData} from "../config/UserDataPlaceholder";
 
 export const QueueMainPage = () => {
 
     const [numbers, setNumbers] = useState<QueueNumberDto[]>([]);
     const [current, setCurrent] = useState<QueueNumberDto | null>();
-    const userUUID = "bf462b96-43d7-4fe9-936c-c25c9e0954b0";
     const navigate = useNavigate();
     const informationWindow = useRef<Window | null>(null);
     const [isPulsing, setIsPulsing] = useState(false);
+    const userData = useSelector(getUserData);
 
     const fetchNumbers = async () => {
         let response = null;
         try {
-            response = await getAllNumbersInQueue(userUUID);
+            response = await getAllNumbersInQueue(userData.userUUID);
             setNumbers(response.data.queueNumbers);
         } catch (error) {
             console.error('Error during fetch queue numbers', error);
@@ -33,7 +34,7 @@ export const QueueMainPage = () => {
 
     const handleNext = async () => {
         if (current == null) {
-            const response = await getNextNumber(userUUID);
+            const response = await getNextNumber(userData.userUUID);
             setCurrent(response.data.queueNumber);
             setIsPulsing(true);
             setTimeout(() => {
@@ -71,7 +72,7 @@ export const QueueMainPage = () => {
     }
 
     if(informationWindow.current != null){
-        informationWindow.current.postMessage({ type: 'UPDATE_WORK_STATION', data: getFromLocalStorage("displayed-text") }, '*');
+        informationWindow.current.postMessage({ type: 'UPDATE_WORK_STATION', data: userData.displayServiceDeskName }, '*');
     }
 
     document.body.style.display = '';
