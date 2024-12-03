@@ -32,23 +32,22 @@ export const MainPage = () => {
     }, []);
 
     const callNextNumber = () => {
-        console.log(processQueue.current.length);
         if (processQueue.current.length > 0) {
-            console.log("Wczytano numer");
             const queueNumberToDisplay = processQueue.current.shift()!;
+
+            readText(queueNumberToDisplay.callNumberPrefix);
+            readText(queueNumberToDisplay.sign + queueNumberToDisplay.number);
+            readText(queueNumberToDisplay.callServiceDeskName);
+
             setDisplayQueue((prevQueue) => {
                 const updatedQueue = [queueNumberToDisplay, ...prevQueue];
                 setIsPulsing(true);
                 return updatedQueue.slice(0, 6);
             });
 
-            readText(queueNumberToDisplay.callNumberPrefix);
-            readText(queueNumberToDisplay.sign + queueNumberToDisplay.number);
-            readText(queueNumberToDisplay.callServiceDeskName);
-
             setTimeout(() => {
                 setIsPulsing(false);
-            }, 8000);
+            }, 7000);
         }
     }
 
