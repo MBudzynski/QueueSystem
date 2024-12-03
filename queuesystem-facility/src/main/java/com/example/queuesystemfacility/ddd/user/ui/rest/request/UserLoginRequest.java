@@ -1,4 +1,4 @@
-package com.example.queuesystemfacility.ddd.user.ui.rest.response;
+package com.example.queuesystemfacility.ddd.user.ui.rest.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

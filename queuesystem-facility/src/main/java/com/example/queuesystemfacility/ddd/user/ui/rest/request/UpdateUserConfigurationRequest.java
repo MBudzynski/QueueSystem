@@ -1,18 +1,21 @@
 package com.example.queuesystemfacility.ddd.user.ui.rest.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
-public class UserDataResponse {
+@NoArgsConstructor
+public class UpdateUserConfigurationRequest {
 
+    @NotNull
     private UUID userUUID;
-    private String userLogin;
     private String displayServiceDeskName;
     private String pronouncedNumberPrefix;
     private String pronouncedServiceDeskName;

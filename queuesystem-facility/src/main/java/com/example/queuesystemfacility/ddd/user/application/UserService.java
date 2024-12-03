@@ -19,16 +19,12 @@ public class UserService {
         return userRepository.findUserByUUID(userUUID);
     }
 
-    public User findUserDataByLogin(String userLogin, String password) throws UserException {
-        User userData = null;
+    public User findUserDataByLogin(String userLogin) throws UserException {
         try {
-            userData = userRepository.findUserByUserName(userLogin);
+           return userRepository.findUserByUserName(userLogin);
         } catch (UserDataNotFoundException e) {
             throw new UserException();
         }
-
-        //todo add security... and login process
-        return userData;
     }
 
     public User updateUserConfiguration(UUID userUUID, String displayServiceDeskName, String pronouncedServiceDeskName, String pronouncedNumberPrefix) {

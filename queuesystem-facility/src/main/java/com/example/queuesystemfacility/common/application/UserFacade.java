@@ -10,7 +10,7 @@ public interface UserFacade {
 
     UserDto findUserByUUID(UUID userUUID) throws UserDataNotFoundException;
 
-    UserDto loginUser(String userLogin, String password) throws UserException ;
+    UserDto getUserConfiguration(String userLogin) throws UserException ;
 
     UserDto updateUserConfiguration(UUID userUUID, String displayServiceDeskName, String pronouncedServiceDeskName, String pronouncedNumberPrefix);
 }

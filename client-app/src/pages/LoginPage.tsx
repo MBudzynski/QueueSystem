@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './css/LoginPage.css';
 import {useNavigate} from 'react-router-dom';
-import {loginUser} from '../service/UserService'
+import {loginUser, fetchUserConfiguration} from '../service/UserService'
 import {useDispatch} from "react-redux";
 import {setUserData} from "../config/UserDataPlaceholder";
 
@@ -16,18 +16,18 @@ export const LoginPage = () =>{
     const handleLoginUser = async () => {
         setError(null);
 
-        let data = null;
         try {
-            const response =  await loginUser(userName, password);
-            data = response.data;
+            const loginResponse = await loginUser(userName, password);
+            localStorage.setItem("jwtToken", loginResponse.data);
+
+            const response =  await fetchUserConfiguration();
+            dispatch(setUserData(response.data));
         } catch (error) {
             console.log(error);
             setError("Worng username or password");
             return;
         }
 
-        console.log(data);
-        dispatch(setUserData(data));
         navigate('/queueMainPage');
     }
 

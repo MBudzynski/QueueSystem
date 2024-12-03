@@ -1,6 +1,6 @@
 package com.example.queuesystemfacility.ddd.user.exception;
 
-public class UserException extends Exception {
+public class UserException extends RuntimeException {
 
     public UserException() {
     }

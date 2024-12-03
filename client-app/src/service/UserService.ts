@@ -8,7 +8,12 @@ export const loginUser = (userLogin: string, passwords:string) => {
         password: passwords
     }
 
-    return queueSystemFacilityClient.post<UserData>('/user/login', UserLoginRequest);
+    return queueSystemFacilityClient.post<string>('/user/login', UserLoginRequest);
+}
+
+export const fetchUserConfiguration = () => {
+
+    return queueSystemFacilityClient.get<UserData>('/user/configuration');
 }
 
 

@@ -22,8 +22,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserDto loginUser(String userLogin, String password) throws UserException {
-        return userService.findUserDataByLogin(userLogin, password)
+    public UserDto getUserConfiguration(String userLogin) throws UserException {
+        return userService.findUserDataByLogin(userLogin)
                 .translate();
     }
 
