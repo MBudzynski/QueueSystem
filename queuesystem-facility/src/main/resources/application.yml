@@ -3,7 +3,7 @@ server:
 
 spring.jpa:
   database: POSTGRESQL
-  hibernate.ddl-auto: create
+  hibernate.ddl-auto: validate
   show-sql: true
 
 spring.datasource:
