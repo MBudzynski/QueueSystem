@@ -15,9 +15,7 @@ export const MainPage = () => {
 
         ws.onmessage = (event) => {
             const newItem: QueueNumber = JSON.parse(event.data);
-            console.log(newItem);
             processQueue.current = [...processQueue.current, newItem];
-            console.log(processQueue);
         };
 
         ws.onerror = (error) => {
