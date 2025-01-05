@@ -1,6 +1,6 @@
-package com.example.queuesystemcore.ddd.queue;
+package com.example.queuesystemcore.ddd.queue.ui.rest;
 
-import com.example.queuesystemcore.common.application.QueueConfigurationFacade;
+import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.ddd.queue.ui.rest.response.QueueConfigurationsResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequestMapping("/queue-configuration")
 public class QueueConfigurationController {
 
-    private final QueueConfigurationFacade queueConfigurationFacade;
+    private final QueueFacade queueFacade;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -25,6 +25,6 @@ public class QueueConfigurationController {
            return QueueConfigurationsResponse.valueOf(new ArrayList<>());
         }
 
-        return QueueConfigurationsResponse.valueOf(queueConfigurationFacade.getQueuesConfiguredAtFacility(facilityUUID));
+        return QueueConfigurationsResponse.valueOf(queueFacade.getQueuesConfiguredAtFacility(facilityUUID));
     }
 }

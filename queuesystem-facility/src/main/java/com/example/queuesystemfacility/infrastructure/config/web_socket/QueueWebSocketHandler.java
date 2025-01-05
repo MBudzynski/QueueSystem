@@ -18,14 +18,14 @@ public class QueueWebSocketHandler extends TextWebSocketHandler {
     private final Map<String, WebSocketSession> sessions = new HashMap<>();
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) {
         String clientIp = session.getRemoteAddress().getAddress().getHostAddress();
         sessions.put(clientIp, session);
         log.info("Connected client IP: " + clientIp);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         String clientIp = session.getRemoteAddress().getAddress().getHostAddress();
         sessions.remove(clientIp);
         log.info("Disconnected client IP: " + clientIp);
@@ -41,5 +41,4 @@ public class QueueWebSocketHandler extends TextWebSocketHandler {
             }
         }
     }
-
 }

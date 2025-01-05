@@ -1,33 +1,27 @@
 package com.example.queuesystemcore.ddd.facility.application;
 
-import com.example.queuesystemcore.common.application.FacilityFacade;
-import com.example.queuesystemcore.common.domain.FacilityDto;
-import com.example.queuesystemcore.ddd.facility.application.mapper.FacilityDtoMapper;
+import com.example.queuesystemcore.ddd.facility.domain.Facility;
 import com.example.queuesystemcore.ddd.facility.domain.FacilityRepository;
-import com.example.queuesystemcore.ddd.facility.exception.FacilityNoExistException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-class FacilityService implements FacilityFacade {
+class FacilityService {
 
     private final FacilityRepository facilityRepository;
 
-    @Override
-    public FacilityDto findFacilityIdByUUID(UUID facilityUUID) {
-        return facilityRepository
-                .findFacilityByUUID(facilityUUID)
-                .map(FacilityDtoMapper::valueOf)
-                .orElseThrow(() ->  new FacilityNoExistException("Facility no exist"));
+    public Optional<Facility> findFacilityIdByUUID(UUID facilityUUID) {
+        return facilityRepository.findFacilityByUUID(facilityUUID);
     }
 
-    @Override
+
     public List<String> getAllQueueNames() {
         return facilityRepository.getAllQueueNames();
     }

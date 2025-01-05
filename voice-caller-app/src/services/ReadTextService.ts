@@ -1,6 +1,6 @@
-export const readText = (number: string) => {
+export const readText = (text: string) => {
     if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(number);
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pl-PL';
         utterance.rate = 0.7;
         utterance.pitch = 0.5;

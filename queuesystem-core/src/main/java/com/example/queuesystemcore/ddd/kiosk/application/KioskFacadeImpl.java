@@ -9,19 +9,19 @@ import com.example.queuesystemcore.ddd.kiosk.ui.rest.response.KioskConfiguration
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.io.FileNotFoundException;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class KioskService implements KioskFacade {
+class KioskFacadeImpl implements KioskFacade {
 
     private final FacilityFacade facilityFacade;
     private final KioskProvider kioskProvider;
     private final FileManagement fileManager;
 
+    @Override
     public KioskConfiguration findKioskButtons(UUID kioskUUID, UUID facilityUUID) {
 
         FacilityDto facilityDto = facilityFacade.findFacilityIdByUUID(facilityUUID);

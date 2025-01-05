@@ -15,6 +15,7 @@ public class UserFacadeImpl implements UserFacade {
 
     private final UserService userService;
 
+    @Override
     public UserDto findUserByUUID(UUID userUUID) throws UserDataNotFoundException {
         return userService
                 .findUserByUUID(userUUID)

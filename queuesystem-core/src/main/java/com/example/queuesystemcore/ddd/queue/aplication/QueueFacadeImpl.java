@@ -1,7 +1,8 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
-import com.example.queuesystemcore.common.application.QueueConfigurationFacade;
+import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.common.domain.QueueConfigurationDto;
+import com.example.queuesystemcore.common.domain.QueueNumberDto;
 import com.example.queuesystemcore.ddd.queue.domain.QueueConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,9 +12,10 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-class QueueConfigurationFacadeImpl implements QueueConfigurationFacade {
+class QueueFacadeImpl implements QueueFacade {
 
     private final QueueConfigurationService queueConfigurationService;
+    private final QueueService queueService;
 
      public List<QueueConfigurationDto> getQueuesConfiguredAtFacility(UUID facilityUUID) {
          return queueConfigurationService
@@ -22,4 +24,9 @@ class QueueConfigurationFacadeImpl implements QueueConfigurationFacade {
                  .map(QueueConfiguration::toDto)
                  .toList();
      }
+
+    @Override
+    public QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID facilityUUID) {
+        return queueService.queuePetitioner(queueConfigurationUUID, facilityUUID);
+    }
 }

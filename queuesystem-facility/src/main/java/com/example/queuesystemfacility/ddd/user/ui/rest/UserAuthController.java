@@ -29,5 +29,4 @@ public class UserAuthController {
                 request.getPassword()));
         return jwtTokenUtil.generateToken(request.getUserLogin());
     }
-
 }

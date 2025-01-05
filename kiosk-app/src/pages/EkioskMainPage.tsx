@@ -25,7 +25,8 @@ export const EkioskMainPage = () => {
         if (kioskConfiguration && kioskConfiguration.institutionLogoFile) {
             setImage(kioskConfiguration.institutionLogoFile);
             setInstitutionName(kioskConfiguration.institutionName)
-            setInstitutionAddress(`ul. ${kioskConfiguration.street} ${kioskConfiguration.houseNumber} ${kioskConfiguration.city}, ${kioskConfiguration.postCode} ${kioskConfiguration.postOffice}`);
+            setInstitutionAddress(`ul. ${kioskConfiguration.street} ${kioskConfiguration.houseNumber} ${kioskConfiguration.city},
+             ${kioskConfiguration.postCode} ${kioskConfiguration.postOffice}`);
         }
 
         kioskConfiguration.kioskButtons.forEach((button, index) => {
