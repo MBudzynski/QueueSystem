@@ -25,7 +25,8 @@ export const EkioskMainPage = () => {
         if (kioskConfiguration && kioskConfiguration.institutionLogoFile) {
             setImage(kioskConfiguration.institutionLogoFile);
             setInstitutionName(kioskConfiguration.institutionName)
-            setInstitutionAddress(`ul. ${kioskConfiguration.street} ${kioskConfiguration.houseNumber} ${kioskConfiguration.city},
+            setInstitutionAddress(`ul. ${kioskConfiguration.street} ${kioskConfiguration.houseNumber} 
+            ${kioskConfiguration.city},
              ${kioskConfiguration.postCode} ${kioskConfiguration.postOffice}`);
         }
 
@@ -42,7 +43,8 @@ export const EkioskMainPage = () => {
 
     }, [kioskConfiguration]);
 
-    const handleButtonClick = async (facilityUUID: string, queueConfigurationUUID: string) => {
+    const handleButtonClick = async (facilityUUID: string,
+                                     queueConfigurationUUID: string) => {
         let response = await queuePetitioner(facilityUUID, queueConfigurationUUID);
         let queueNumber = response.data;
 
@@ -55,8 +57,8 @@ export const EkioskMainPage = () => {
     return (
         <div>
             <div className="greeting-section">
-                <h1 >Welcome</h1>
-                <h2 >Please select an option:</h2>
+                <h1>Welcome</h1>
+                <h2>Please select an option:</h2>
             </div>
             <div className="atm-window">
                 <div className="side-buttons left">

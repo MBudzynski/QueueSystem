@@ -20,6 +20,7 @@ public class QueueController {
 
     private final QueueFacade queueFacade;
 
+    @ExceptionHandler
     @PostMapping("/bring")
     @ResponseStatus(HttpStatus.OK)
     public QueueNumberResponse bringNextNumber(@RequestBody @Valid BringNextNumberRequest request) {

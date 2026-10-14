@@ -41,7 +41,8 @@ export const QueueMainPage = () => {
                 setIsPulsing(false);
             }, 7000);
             if (informationWindow.current) {
-                informationWindow.current.postMessage({ type: 'UPDATE_NUMBER', data: response.data.queueNumber.fullNumber }, '*');
+                informationWindow.current.postMessage({ type: 'UPDATE_NUMBER',
+                    data: response.data.queueNumber.fullNumber }, '*');
             }
             fetchNumbers();
         }
