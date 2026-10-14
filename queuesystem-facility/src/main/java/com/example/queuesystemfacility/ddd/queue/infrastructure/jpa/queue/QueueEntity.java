@@ -45,13 +45,15 @@ class QueueEntity {
                 .queueConfigurationId(data.getQueueConfigurationId())
                 .creationDate(data.getCreationDate())
                 .creationTime(data.getCreationTime())
-                .bring(data.getBring())
+                .bring(data.getBring() == null ? Boolean.FALSE : data.getBring())
                 .bringTime(data.getBringTime())
                 .delayTime(data.getDelayTime())
                 .build();
     }
 
     public void delayQueueNumber(LocalTime delayTime) {
+        this.bring = Boolean.FALSE;
+        this.bringTime = null;
         this.delayTime = delayTime;
     }
 

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class QueueConfigurationService {
+class QueueConfigurationService {
 
     private final FacilityConfigurationProvider facilityConfigurationProvider;
     private final QueueConfigurationRepository queueConfigurationRepository;
@@ -56,5 +56,9 @@ public class QueueConfigurationService {
                 .toList();
 
         queueConfigurationRepository.saveAllQueueConfigurations(notExistQueueConfigurations);
+    }
+
+    public List<QueueConfiguration> getAllConfiguredQueues() {
+        return queueConfigurationRepository.getAllQueueConfigurations();
     }
 }

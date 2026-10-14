@@ -12,7 +12,8 @@ class PdfFacadeImpl implements PdfFacade {
 
     private final QueueNumberTemplate queueNumberTemplate;
 
-    public String generateQueueNUmberPdf(String queueNumber, String logoFilePath, String institutionName) {
+    @Override
+    public String generateQueueNumberPdf(String queueNumber, String logoFilePath, String institutionName) {
        return Base64.getEncoder().encodeToString(queueNumberTemplate.generate(queueNumber, logoFilePath, institutionName));
     }
 

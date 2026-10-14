@@ -3,33 +3,34 @@ server:
 
 spring.jpa:
   database: POSTGRESQL
-  hibernate.ddl-auto: create
+  hibernate.ddl-auto: validate
   show-sql: true
 
 spring.datasource:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://localhost:5432/queue-system-example-facility
-  username: -----
-  password: -----
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
 
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: example-facility
-    password: Facility123
-    virtual-host: queue-system
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: ${RABBITMQ_VHOST}
 
 http:
   client:
     queue-system-core:
-      base-url: http://localhost:8085
+      base-url: ${QUEUE_SYSTEM_CORE_BASE_URL:http://localhost:8085}
 
 custom:
   configuration:
-    queue-name: test123
-    facilityId: 1
-    facilityUUID: 27f7a5cb-9002-4af5-a0a7-f169d20eafd7
+    queue-name: ${FACILITY_QUEUE_NAME}
+    facilityId: ${FACILITY_ID:1}
+    facilityUUID: ${FACILITY_UUID:27f7a5cb-9002-4af5-a0a7-f169d20eafd7}
+
   schedule:
     synchronize-queue-configuration:
       cron: 0 0/30 6-20 * * *

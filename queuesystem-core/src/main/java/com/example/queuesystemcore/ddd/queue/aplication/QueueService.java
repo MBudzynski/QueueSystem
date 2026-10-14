@@ -1,7 +1,6 @@
 package com.example.queuesystemcore.ddd.queue.aplication;
 
 import com.example.queuesystemcore.common.application.FacilityFacade;
-import com.example.queuesystemcore.common.application.QueueFacade;
 import com.example.queuesystemcore.common.domain.FacilityDto;
 import com.example.queuesystemcore.common.domain.QueueDto;
 import com.example.queuesystemcore.common.domain.QueueNumberDto;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class QueueService implements QueueFacade {
+class QueueService {
 
     private final QueueNumberMapper queueNumberMapper;
     private final MessageBrokerClient messageBrokerClient;
@@ -28,7 +27,7 @@ class QueueService implements QueueFacade {
     private final PdfFacade pdfFacade;
 
     @Transactional
-    public QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID facilityUUID) {
+    public synchronized QueueNumberDto queuePetitioner(UUID queueConfigurationUUID, UUID facilityUUID) {
 
         FacilityDto facilityDto = facilityFacade.findFacilityIdByUUID(facilityUUID);
         QueueConfiguration queueConfiguration = queueConfigurationProvider
@@ -39,35 +38,20 @@ class QueueService implements QueueFacade {
 
         String sign = queueConfiguration.getSign();
         Integer number = queueConfiguration.getNextNumber();
-        String fullNumber = sign + formatNumberToSting(number);
+        String fullNumber = sign + String.format("%03d", number);
 
-        QueueDto dto = queueNumberMapper.toDto(sign, number, fullNumber, facilityDto.getFacilityId(), queueConfiguration.getQueueConfigurationId());
-
-        messageBrokerClient.sendNewQueueNumber(facilityDto.getQueueName(), dto);
+        QueueDto dto = queueNumberMapper.toDto(sign, number, fullNumber,
+                facilityDto.getFacilityId(), queueConfiguration.getQueueConfigurationId());
 
         queueConfigurationProvider.updateCurrentNumber(queueConfiguration.getQueueConfigurationId(), number);
 
-        String queueNumberPdf = pdfFacade.generateQueueNUmberPdf(
+        String queueNumberPdf = pdfFacade.generateQueueNumberPdf(
                 fullNumber,
                 facilityDto.getPathToLogoFile(),
                 facilityDto.getInstitutionName());
 
+        messageBrokerClient.sendNewQueueNumber(facilityDto.getQueueName(), dto);
+
         return queueNumberMapper.toDto(fullNumber, queueNumberPdf);
-    }
-
-    private String formatNumberToSting(Integer number) {
-        String formatNumber = number.toString();
-
-        switch (formatNumber.length()) {
-            case 2 -> {
-                return "0" + formatNumber;
-            }
-            case 1 -> {
-                return "00" + formatNumber;
-            }
-            default -> {
-                return formatNumber;
-            }
-        }
     }
 }
