@@ -9,16 +9,16 @@ spring.jpa:
 spring.datasource:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://localhost:5432/queue-system-core
-  username: postgres
-  password: MiBu92
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
 
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: queue-system-cor
-    password: Test123
-    virtual-host: queue-system
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: ${RABBITMQ_VHOST}
 
 custom:
   schedule:

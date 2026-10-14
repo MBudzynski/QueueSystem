@@ -19,7 +19,6 @@ public class QueueNumberTemplate {
 
         try {
             PdfWriter.getInstance(document, out);
-
             document.open();
             document.add(prepareInstitutionNameSection(institutionName));
             document.add(prepareImage(logoFilePath));

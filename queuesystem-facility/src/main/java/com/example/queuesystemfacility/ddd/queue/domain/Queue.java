@@ -7,6 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Data
@@ -30,9 +31,11 @@ public class Queue {
         return QueueNumberDto
                 .builder()
                 .fullNumber(this.fullNumber)
+                .sign(this.sign)
+                .number(this.num)
                 .queueUUID(this.queueUUID)
                 .creationDate(this.creationDate)
-                .creationTime(this.creationTime)
+                .creationTime(this.creationTime.truncatedTo(ChronoUnit.SECONDS))
                 .build();
     }
 

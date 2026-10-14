@@ -2,12 +2,14 @@ package com.example.queuesystemfacility.ddd.queue.infrastructure.jpa.queueconfig
 
 import com.example.queuesystemfacility.ddd.queue.domain.QueueConfiguration;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "queue_configuration")
