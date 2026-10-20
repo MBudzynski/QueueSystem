@@ -27,11 +27,25 @@ class QueueService {
 
     @RabbitListener(queues = "#{facilityConfigurationYmlProperties.queueName}")
     public void receiveQueueDtoFormMessageBroker(QueueDto dto) {
-        if(!configurationProvider.facilityId().equals(dto.getFacilityId())) {
-            log.error("Received queue dto from  wrong facility: {}", dto);
+
+        if (dto == null) {
+            throw new IllegalArgumentException("Received null QueueDto from RabbitMQ");
         }
 
-        queueRepository.addToQueue(queueMapper.translateFrom(dto));
+        if (!configurationProvider.facilityId().equals(dto.getFacilityId())) {
+            throw new IllegalArgumentException(
+                    "Queue message belongs to a different facility. Expected facilityId="
+                            + configurationProvider.facilityId()
+                            + ", received=" + dto.getFacilityId());
+        }
+
+        try {
+            queueRepository.addToQueue(queueMapper.translateFrom(dto));
+        } catch (RuntimeException exception) {
+            log.error("Failed to process queue message; message will be retried. queueId={}",
+                    dto.getFullNumber(), exception);
+            throw exception;
+        }
     }
 
     public void deleteQueueNumber(UUID queueUUID) {
